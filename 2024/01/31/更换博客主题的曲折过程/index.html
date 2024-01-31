@@ -19,27 +19,32 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+    <meta name="description" content="今天在更换博客主题的过程中很不顺利，一开始想要更换next、butterfly主题怎么都无法成功更换，后来又尝试跟着butterfly官方的文档不知道怎么地就成功了（当然最后还是换上了next主题），我对一开始无法成功更换主题，后面成功更换的原因有三个猜测。  1、在主题配置文件中输错了想要更换的主题名字，或者是“theme：”后面的空格输入错了。（说实话这个可能性比较小，因为最开始我尝试更换了不">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://example.com/2023/09/18/hello-world/index.html">
+<meta property="og:title" content="更换博客主题的曲折过程">
+<meta property="og:url" content="http://example.com/2024/01/31/%E6%9B%B4%E6%8D%A2%E5%8D%9A%E5%AE%A2%E4%B8%BB%E9%A2%98%E7%9A%84%E6%9B%B2%E6%8A%98%E8%BF%87%E7%A8%8B/index.html">
 <meta property="og:site_name" content="Technichen&#39;s blog">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta property="og:description" content="今天在更换博客主题的过程中很不顺利，一开始想要更换next、butterfly主题怎么都无法成功更换，后来又尝试跟着butterfly官方的文档不知道怎么地就成功了（当然最后还是换上了next主题），我对一开始无法成功更换主题，后面成功更换的原因有三个猜测。  1、在主题配置文件中输错了想要更换的主题名字，或者是“theme：”后面的空格输入错了。（说实话这个可能性比较小，因为最开始我尝试更换了不">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-09-18T13:16:34.131Z">
-<meta property="article:modified_time" content="2023-09-18T13:16:34.131Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/ChenHaoran2003/blogphoto/main/Hexo/202401311744523.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ChenHaoran2003/blogphoto/main/Hexo/202401311800032.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ChenHaoran2003/blogphoto/main/Hexo/202401311802228.png">
+<meta property="article:published_time" content="2024-01-31T09:41:44.000Z">
+<meta property="article:modified_time" content="2024-01-31T10:12:45.624Z">
 <meta property="article:author" content="hao_ran">
+<meta property="article:tag" content="博客 刨根问底">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/ChenHaoran2003/blogphoto/main/Hexo/202401311744523.png">
 
 
-<link rel="canonical" href="http://example.com/2023/09/18/hello-world/">
+<link rel="canonical" href="http://example.com/2024/01/31/%E6%9B%B4%E6%8D%A2%E5%8D%9A%E5%AE%A2%E4%B8%BB%E9%A2%98%E7%9A%84%E6%9B%B2%E6%8A%98%E8%BF%87%E7%A8%8B/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2023/09/18/hello-world/","path":"2023/09/18/hello-world/","title":"Hello World"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2024/01/31/%E6%9B%B4%E6%8D%A2%E5%8D%9A%E5%AE%A2%E4%B8%BB%E9%A2%98%E7%9A%84%E6%9B%B2%E6%8A%98%E8%BF%87%E7%A8%8B/","path":"2024/01/31/更换博客主题的曲折过程/","title":"更换博客主题的曲折过程"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>Hello World | Technichen's blog</title>
+<title>更换博客主题的曲折过程 | Technichen's blog</title>
   
 
 
@@ -91,7 +96,7 @@
   
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+    <div class="sidebar-inner sidebar-overview-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -104,7 +109,6 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick-Start"><span class="nav-number">1.</span> <span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-a-new-post"><span class="nav-number">1.1.</span> <span class="nav-text">Create a new post</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run-server"><span class="nav-number">1.2.</span> <span class="nav-text">Run server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generate-static-files"><span class="nav-number">1.3.</span> <span class="nav-text">Generate static files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deploy-to-remote-sites"><span class="nav-number">1.4.</span> <span class="nav-text">Deploy to remote sites</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -149,7 +153,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/09/18/hello-world/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/01/31/%E6%9B%B4%E6%8D%A2%E5%8D%9A%E5%AE%A2%E4%B8%BB%E9%A2%98%E7%9A%84%E6%9B%B2%E6%8A%98%E8%BF%87%E7%A8%8B/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -162,12 +166,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="Hello World | Technichen's blog">
+      <meta itemprop="name" content="更换博客主题的曲折过程 | Technichen's blog">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Hello World
+          更换博客主题的曲折过程
         </h1>
 
         <div class="post-meta-container">
@@ -177,8 +181,9 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
+      
 
-      <time title="创建时间：2023-09-18 21:16:34" itemprop="dateCreated datePublished" datetime="2023-09-18T21:16:34+08:00">2023-09-18</time>
+      <time title="创建时间：2024-01-31 17:41:44 / 修改时间：18:12:45" itemprop="dateCreated datePublished" datetime="2024-01-31T17:41:44+08:00">2024-01-31</time>
     </span>
 
   
@@ -190,19 +195,21 @@
     
     
     
-    <div class="post-body" itemprop="articleBody"><p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+    <div class="post-body" itemprop="articleBody"><p>今天在更换博客主题的过程中很不顺利，一开始想要更换next、butterfly主题怎么都无法成功更换，后来又尝试跟着butterfly官方的文档不知道怎么地就成功了（当然最后还是换上了next主题），我对一开始无法成功更换主题，后面成功更换的原因有三个猜测。</p>
+<hr>
+<p>1、在主题配置文件中输错了想要更换的主题名字，或者是“theme：”后面的空格输入错了。（说实话这个可能性比较小，因为最开始我尝试更换了不止一种主题都失败了）</p>
+<p><img src="https://raw.githubusercontent.com/ChenHaoran2003/blogphoto/main/Hexo/202401311744523.png" alt="image-20240131174415837"></p>
+<hr>
+<p>2、在更新主题配置文件后没有关闭git软件，这使得git软件读取到的主题配置文件没有更新（这是我随便猜的）。</p>
+<hr>
+<p>3、当我对更换主题不抱有希望时，我看到了一篇教程是跟着butterfly官方文档进行更换主题的，便也自己试着跟着butterfly官方文档来更换主题，一个没有见过的图标显示在了git bash中，我意识这一次更换主题应该是要成功了。</p>
+<p><img src="https://raw.githubusercontent.com/ChenHaoran2003/blogphoto/main/Hexo/202401311800032.png" alt="butterfly出现了"></p>
+<p>我随即更换了next主题，也成功了。</p>
+<p><img src="https://raw.githubusercontent.com/ChenHaoran2003/blogphoto/main/Hexo/202401311802228.png" alt="image-20240131180234017"></p>
+<p>对于第三个猜测，我猜测是因为在跟着butterfly官方文档的时候使用的git命令对我的博客的某些属性进行了变更，使得更改主题的功能被激活了。（但是我也觉得这个原因的可能性比较小，因为在跟着butterfly官方文档时，我只输入了<code>git clone -b master https://github.com/jerryc127/hexo-theme-butterfly.git themes/butterfly</code>这一行命令）</p>
+<p>这个猜测让我想起来”左耳朵耗子“陈皓说过的：学习技术，最好看第一手资料。</p>
+<hr>
+<p>虽然一开始无法更换主题，后来能够更换主题这件事情的原因还是使我感到有些好奇，但是无论如何，最终博客的主题都更换成功了，这是令我开心的。我将这次的经历记录在了博客，或许在以后再遇到类似的问题能够有些启发呢。</p>
 
     </div>
 
@@ -211,16 +218,19 @@
     
 
     <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%8D%9A%E5%AE%A2-%E5%88%A8%E6%A0%B9%E9%97%AE%E5%BA%95/" rel="tag"># 博客 刨根问底</a>
+          </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
+                <a href="/2024/01/31/%E5%8D%9A%E5%AE%A2%E6%9B%B4%E6%96%B0/" rel="prev" title="博客更新">
+                  <i class="fa fa-angle-left"></i> 博客更新
+                </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2023/09/18/my-first-blog/" rel="next" title="my-first-blog">
-                  my-first-blog <i class="fa fa-angle-right"></i>
-                </a>
             </div>
           </div>
     </footer>
