@@ -112,7 +112,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-count">5</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -134,6 +134,118 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/02/02/tmux%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hao_ran">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Technichen's blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Technichen's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2024/02/02/tmux%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">tmux入门笔记</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2024-02-02 20:56:36 / 修改时间：21:01:42" itemprop="dateCreated datePublished" datetime="2024-02-02T20:56:36+08:00">2024-02-02</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="tmux是什么"><a href="#tmux是什么" class="headerlink" title="tmux是什么"></a>tmux是什么</h2><p>tmux是终端复用器(terminal multiplexer)的缩写，能够用来管理终端，使用户能够在使用多个终端的时候将各个终端管理得井井有条而不至于找不到想要操作的终端。</p>
+<h2 id="tmux的三个层级"><a href="#tmux的三个层级" class="headerlink" title="tmux的三个层级"></a>tmux的三个层级</h2><p>session（会话）、window（窗口）、pane（窗格）。</p>
+<p>概况来说：会话可以被放在后台运行，在一个会话中可以创建很多平行的窗口，在一个窗口中可以创建很多贴满窗口的窗格。</p>
+<h2 id="tmux的使用：窗口"><a href="#tmux的使用：窗口" class="headerlink" title="tmux的使用：窗口"></a>tmux的使用：窗口</h2><h3 id="打开tmux"><a href="#打开tmux" class="headerlink" title="打开tmux"></a>打开tmux</h3><p>打开tmux：在终端中输入tmux</p>
+<p><img src="https://s2.loli.net/2024/02/02/zJbKvMAD2xnmtiy.jpg" alt="img"> </p>
+<p>进入tmux后，终端的最下面有一个绿色任务栏。</p>
+<h3 id="打开新窗口"><a href="#打开新窗口" class="headerlink" title="打开新窗口"></a>打开新窗口</h3><p>打开新窗口：先输入Ctrl+b，然后输入c</p>
+<p><img src="https://s2.loli.net/2024/02/02/pWlEKXqS6ZBFs2d.jpg" alt="img"> </p>
+<p>此时可以看到下面的任务栏多了一个新的窗口。</p>
+<h3 id="在不同窗口之前切换"><a href="#在不同窗口之前切换" class="headerlink" title="在不同窗口之前切换"></a>在不同窗口之前切换</h3><p>在不同窗口之前切换：先输入Ctrl+b，再输入想要切换的窗口的数字号码。</p>
+<p><img src="https://s2.loli.net/2024/02/02/nPQVaeqSAufOdgi.jpg" alt="img"> </p>
+<p>此时可以看到当切换回0号窗口时，星标*回到了0号窗口上。</p>
+<p>除了上面的切换窗口的方法，也可以通过输入Ctrl+b p和Ctrl+b n来左右切换窗口。</p>
+<h3 id="关闭窗口"><a href="#关闭窗口" class="headerlink" title="关闭窗口"></a>关闭窗口</h3><p>关闭窗口：ctrl+b shift+7。</p>
+<p><img src="https://s2.loli.net/2024/02/02/6D932HyIvzCYgAd.jpg" alt="img"> </p>
+<p>当输入了Ctrl+b shift+7后，tmux会让你确认是否关闭该窗口，与在Linux系统中其他地方的确认不同，这里只需要按下字母y，不需要按下enter。</p>
+<h2 id="tmux的使用：窗格"><a href="#tmux的使用：窗格" class="headerlink" title="tmux的使用：窗格"></a>tmux的使用：窗格</h2><h3 id="创建新的窗格（左右）"><a href="#创建新的窗格（左右）" class="headerlink" title="创建新的窗格（左右）"></a>创建新的窗格（左右）</h3><p>创建新的窗格（左右）：Ctrl+b shift+5（%）</p>
+<p><img src="https://s2.loli.net/2024/02/02/vHKQUzcn2sjieaZ.jpg" alt="img"> </p>
+<h3 id="创建新的窗格（上下）"><a href="#创建新的窗格（上下）" class="headerlink" title="创建新的窗格（上下）"></a>创建新的窗格（上下）</h3><p>创建新的窗格（上下）：Ctrl+b shift+‘（“）</p>
+<p><img src="https://s2.loli.net/2024/02/02/RcX3wmFhEiqlsp5.jpg" alt="img"> </p>
+<h3 id="在窗格之间切换"><a href="#在窗格之间切换" class="headerlink" title="在窗格之间切换"></a>在窗格之间切换</h3><p>在窗格之间切换：Ctrl+b ‘上下左右’。</p>
+<p>此外还可以通过Ctrl+b q ‘数字’ 来选择在哪个窗口之间切换。</p>
+<p><img src="https://s2.loli.net/2024/02/02/5KVDm9fJXoSpAl6.jpg" alt="img"> </p>
+<p>这种方法对手速的要求比较高，因为当按下Ctrl+b q后，只会给一会儿的反应时间来让你看清楚想要跳转的窗格的数字编号并按下这个编号。</p>
+<h3 id="将窗格最大化-从最大化恢复"><a href="#将窗格最大化-从最大化恢复" class="headerlink" title="将窗格最大化&#x2F;从最大化恢复"></a>将窗格最大化&#x2F;从最大化恢复</h3><p>将窗格最大化：Ctrl+b z。</p>
+<p>将窗格从最大化恢复：再按一次Ctrl+b z。</p>
+<h3 id="关闭窗格"><a href="#关闭窗格" class="headerlink" title="关闭窗格"></a>关闭窗格</h3><p>关闭窗格：Ctrl+b x。</p>
+<p><img src="https://s2.loli.net/2024/02/02/FNwGqM2rmzuEj4p.jpg" alt="img"> </p>
+<p>与关闭窗口相同，tmux会询问你是否确认关闭该窗格。</p>
+<p>可以通过将窗口中的每一个窗格关闭的方式来关闭一个窗口。</p>
+<h3 id="查看所有的窗口、窗格"><a href="#查看所有的窗口、窗格" class="headerlink" title="查看所有的窗口、窗格"></a>查看所有的窗口、窗格</h3><p>查看所有的窗口、窗格：Ctel+b w。</p>
+<p><img src="https://s2.loli.net/2024/02/02/uzZ2qlp4PgmWyA5.jpg" alt="img"> </p>
+<p>此时可以通过键盘的上下左右来看每个窗口、窗格。</p>
+<h2 id="tmux的使用：会话"><a href="#tmux的使用：会话" class="headerlink" title="tmux的使用：会话"></a>tmux的使用：会话</h2><h3 id="断开当前会话"><a href="#断开当前会话" class="headerlink" title="断开当前会话"></a>断开当前会话</h3><p>断开当前会话：Ctrl+b d。</p>
+<p><img src="https://s2.loli.net/2024/02/02/GDfbFnmWJYT5pBO.jpg" alt="img"> </p>
+<p>此时可以看到tmux最下面的绿色任务栏不见了，这并不是tmux被关闭了，而是被放在了后台。通过终端的提示detached也可以知道这只是“断开连接”，并不是关闭。</p>
+<h3 id="查看会话数量"><a href="#查看会话数量" class="headerlink" title="查看会话数量"></a>查看会话数量</h3><p>在bash终端输入tmux ls。</p>
+<p><img src="https://s2.loli.net/2024/02/02/VBNWUcvYMjdGOp2.jpg" alt="img"> </p>
+<p>可以看到，当前创建了一个会话，这个会话的编号是0。</p>
+<h3 id="创建新的会话"><a href="#创建新的会话" class="headerlink" title="创建新的会话"></a>创建新的会话</h3><p>在bash终端中输入tmux即可。</p>
+<h3 id="连接断开的会话"><a href="#连接断开的会话" class="headerlink" title="连接断开的会话"></a>连接断开的会话</h3><p>连接断开的会话：tmux a -t ‘数字’。这里的a是attach的缩写，也可以将a替换为attach。</p>
+<p><img src="https://s2.loli.net/2024/02/02/MOGJZQoAVtKIy9n.jpg" alt="img"> </p>
+<p>如果想要连接最近断开的会话，可以直接输入tmux a。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -171,9 +283,15 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2024-01-31 17:41:44 / 修改时间：18:12:45" itemprop="dateCreated datePublished" datetime="2024-01-31T17:41:44+08:00">2024-01-31</time>
+      <time title="创建时间：2024-01-31 17:41:44" itemprop="dateCreated datePublished" datetime="2024-01-31T17:41:44+08:00">2024-01-31</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-02-02 21:07:26" itemprop="dateModified" datetime="2024-02-02T21:07:26+08:00">2024-02-02</time>
     </span>
 
   
@@ -189,14 +307,14 @@
           <p>今天在更换博客主题的过程中很不顺利，一开始想要更换next、butterfly主题怎么都无法成功更换，后来又尝试跟着butterfly官方的文档不知道怎么地就成功了（当然最后还是换上了next主题），我对一开始无法成功更换主题，后面成功更换的原因有三个猜测。</p>
 <hr>
 <p>1、在主题配置文件中输错了想要更换的主题名字，或者是“theme：”后面的空格输入错了。（说实话这个可能性比较小，因为最开始我尝试更换了不止一种主题都失败了）</p>
-<p><img src="https://raw.githubusercontent.com/ChenHaoran2003/blogphoto/main/Hexo/202401311744523.png" alt="image-20240131174415837"></p>
+<p><img src="https://s2.loli.net/2024/02/02/64oSvQUWKTpzgDM.png" alt="在配置文件中修改主题"></p>
 <hr>
 <p>2、在更新主题配置文件后没有关闭git软件，这使得git软件读取到的主题配置文件没有更新（这是我随便猜的）。</p>
 <hr>
 <p>3、当我对更换主题不抱有希望时，我看到了一篇教程是跟着butterfly官方文档进行更换主题的，便也自己试着跟着butterfly官方文档来更换主题，一个没有见过的图标显示在了git bash中，我意识这一次更换主题应该是要成功了。</p>
-<p><img src="https://raw.githubusercontent.com/ChenHaoran2003/blogphoto/main/Hexo/202401311800032.png" alt="butterfly出现了"></p>
+<p><img src="https://s2.loli.net/2024/02/02/VnZxDUBq9s2yv3M.png" alt="butterfly出现了"></p>
 <p>我随即更换了next主题，也成功了。</p>
-<p><img src="https://raw.githubusercontent.com/ChenHaoran2003/blogphoto/main/Hexo/202401311802228.png" alt="image-20240131180234017"></p>
+<p><img src="https://s2.loli.net/2024/02/02/xELjPnBupzbOlX4.png" alt="成功更换next主题"></p>
 <p>对于第三个猜测，我猜测是因为在跟着butterfly官方文档的时候使用的git命令对我的博客的某些属性进行了变更，使得更改主题的功能被激活了。（但是我也觉得这个原因的可能性比较小，因为在跟着butterfly官方文档时，我只输入了<code>git clone -b master https://github.com/jerryc127/hexo-theme-butterfly.git themes/butterfly</code>这一行命令）</p>
 <p>这个猜测让我想起来”左耳朵耗子“陈皓说过的：学习技术，最好看第一手资料。</p>
 <hr>
@@ -255,9 +373,15 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2024-01-31 16:01:18 / 修改时间：17:21:51" itemprop="dateCreated datePublished" datetime="2024-01-31T16:01:18+08:00">2024-01-31</time>
+      <time title="创建时间：2024-01-31 16:01:18" itemprop="dateCreated datePublished" datetime="2024-01-31T16:01:18+08:00">2024-01-31</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-02-02 21:08:26" itemprop="dateModified" datetime="2024-02-02T21:08:26+08:00">2024-02-02</time>
     </span>
 
   
@@ -272,8 +396,8 @@
     <div class="post-body" itemprop="articleBody">
           <p>2023年9月15日我完成了ysyx的申请自述，正式开始ysyx，除此之外，我在9月18日创建了这个博客，目的是用来记录ysyx的学习收获。</p>
 <p>然而，由于后来的时间安排问题，我一共只进行了两天ysyx。学习记录显示，我只在9月15日与9月17日这两天更新了学习记录，就再也没有更新过，我在9月18日创建的个人博客也因此从来没有更新过。</p>
-<p><img src="https://raw.githubusercontent.com/ChenHaoran2003/blogphoto/main/Hexo/202401311721704.png" alt="ysyx只进行了两天就被各种事情打乱了"></p>
-<p>大三下学期的课程比较少，我决定从寒假开始继续ysyx。在未来推进ysyx的过程中，我将在这个博客记录我的学习收获与心得。</p>
+<p><img src="https://s2.loli.net/2024/02/02/fhvYduq4NyxHTsI.png" alt="ysyx只推进了两天就被各种事情打断了"></p>
+<p>大三下学期的课程比较少，我决定从寒假开始继续ysyx。在未来推进ysyx的过程中，我将在这个博客记录我的学习收获与心得，当然我也意识到，这个博客不仅仅可以用来记录ysyx相关的内容，也可以用来记录与其他各种技术相关的内容。</p>
 
       
     </div>

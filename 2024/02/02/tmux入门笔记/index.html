@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha256-yIDrPSXHZdOZhAqiBP7CKzIwMQmRCJ8UeB8Jo17YC4o=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="tmux是什么tmux是终端复用器(terminal multiplexer)的缩写，能够用来管理终端，使用户能够在使用多个终端的时候将各个终端管理得井井有条而不至于找不到想要操作的终端。 tmux的三个层级session（会话）、window（窗口）、pane（窗格）。 概况来说：会话可以被放在后台运行，在一个会话中可以创建很多平行的窗口，在一个窗口中可以创建很多贴满窗口的窗格。 tmux的使用">
+<meta property="og:type" content="article">
+<meta property="og:title" content="tmux入门笔记">
+<meta property="og:url" content="http://example.com/2024/02/02/tmux%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="Technichen&#39;s blog">
+<meta property="og:description" content="tmux是什么tmux是终端复用器(terminal multiplexer)的缩写，能够用来管理终端，使用户能够在使用多个终端的时候将各个终端管理得井井有条而不至于找不到想要操作的终端。 tmux的三个层级session（会话）、window（窗口）、pane（窗格）。 概况来说：会话可以被放在后台运行，在一个会话中可以创建很多平行的窗口，在一个窗口中可以创建很多贴满窗口的窗格。 tmux的使用">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2024/02/02/zJbKvMAD2xnmtiy.jpg">
+<meta property="og:image" content="https://s2.loli.net/2024/02/02/pWlEKXqS6ZBFs2d.jpg">
+<meta property="og:image" content="https://s2.loli.net/2024/02/02/nPQVaeqSAufOdgi.jpg">
+<meta property="og:image" content="https://s2.loli.net/2024/02/02/6D932HyIvzCYgAd.jpg">
+<meta property="og:image" content="https://s2.loli.net/2024/02/02/vHKQUzcn2sjieaZ.jpg">
+<meta property="og:image" content="https://s2.loli.net/2024/02/02/RcX3wmFhEiqlsp5.jpg">
+<meta property="og:image" content="https://s2.loli.net/2024/02/02/5KVDm9fJXoSpAl6.jpg">
+<meta property="og:image" content="https://s2.loli.net/2024/02/02/FNwGqM2rmzuEj4p.jpg">
+<meta property="og:image" content="https://s2.loli.net/2024/02/02/uzZ2qlp4PgmWyA5.jpg">
+<meta property="og:image" content="https://s2.loli.net/2024/02/02/GDfbFnmWJYT5pBO.jpg">
+<meta property="og:image" content="https://s2.loli.net/2024/02/02/VBNWUcvYMjdGOp2.jpg">
+<meta property="og:image" content="https://s2.loli.net/2024/02/02/MOGJZQoAVtKIy9n.jpg">
+<meta property="article:published_time" content="2024-02-02T12:56:36.000Z">
+<meta property="article:modified_time" content="2024-02-02T13:01:42.781Z">
+<meta property="article:author" content="hao_ran">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2024/02/02/zJbKvMAD2xnmtiy.jpg">
+
+
+<link rel="canonical" href="http://example.com/2024/02/02/tmux%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2024/02/02/tmux%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0/","path":"2024/02/02/tmux入门笔记/","title":"tmux入门笔记"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>tmux入门笔记 | Technichen's blog</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Technichen's blog</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#tmux%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-number">1.</span> <span class="nav-text">tmux是什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tmux%E7%9A%84%E4%B8%89%E4%B8%AA%E5%B1%82%E7%BA%A7"><span class="nav-number">2.</span> <span class="nav-text">tmux的三个层级</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tmux%E7%9A%84%E4%BD%BF%E7%94%A8%EF%BC%9A%E7%AA%97%E5%8F%A3"><span class="nav-number">3.</span> <span class="nav-text">tmux的使用：窗口</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%93%E5%BC%80tmux"><span class="nav-number">3.1.</span> <span class="nav-text">打开tmux</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%93%E5%BC%80%E6%96%B0%E7%AA%97%E5%8F%A3"><span class="nav-number">3.2.</span> <span class="nav-text">打开新窗口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8%E4%B8%8D%E5%90%8C%E7%AA%97%E5%8F%A3%E4%B9%8B%E5%89%8D%E5%88%87%E6%8D%A2"><span class="nav-number">3.3.</span> <span class="nav-text">在不同窗口之前切换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B3%E9%97%AD%E7%AA%97%E5%8F%A3"><span class="nav-number">3.4.</span> <span class="nav-text">关闭窗口</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tmux%E7%9A%84%E4%BD%BF%E7%94%A8%EF%BC%9A%E7%AA%97%E6%A0%BC"><span class="nav-number">4.</span> <span class="nav-text">tmux的使用：窗格</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E6%96%B0%E7%9A%84%E7%AA%97%E6%A0%BC%EF%BC%88%E5%B7%A6%E5%8F%B3%EF%BC%89"><span class="nav-number">4.1.</span> <span class="nav-text">创建新的窗格（左右）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E6%96%B0%E7%9A%84%E7%AA%97%E6%A0%BC%EF%BC%88%E4%B8%8A%E4%B8%8B%EF%BC%89"><span class="nav-number">4.2.</span> <span class="nav-text">创建新的窗格（上下）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8%E7%AA%97%E6%A0%BC%E4%B9%8B%E9%97%B4%E5%88%87%E6%8D%A2"><span class="nav-number">4.3.</span> <span class="nav-text">在窗格之间切换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%86%E7%AA%97%E6%A0%BC%E6%9C%80%E5%A4%A7%E5%8C%96-%E4%BB%8E%E6%9C%80%E5%A4%A7%E5%8C%96%E6%81%A2%E5%A4%8D"><span class="nav-number">4.4.</span> <span class="nav-text">将窗格最大化&#x2F;从最大化恢复</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B3%E9%97%AD%E7%AA%97%E6%A0%BC"><span class="nav-number">4.5.</span> <span class="nav-text">关闭窗格</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E6%89%80%E6%9C%89%E7%9A%84%E7%AA%97%E5%8F%A3%E3%80%81%E7%AA%97%E6%A0%BC"><span class="nav-number">4.6.</span> <span class="nav-text">查看所有的窗口、窗格</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tmux%E7%9A%84%E4%BD%BF%E7%94%A8%EF%BC%9A%E4%BC%9A%E8%AF%9D"><span class="nav-number">5.</span> <span class="nav-text">tmux的使用：会话</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%AD%E5%BC%80%E5%BD%93%E5%89%8D%E4%BC%9A%E8%AF%9D"><span class="nav-number">5.1.</span> <span class="nav-text">断开当前会话</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E4%BC%9A%E8%AF%9D%E6%95%B0%E9%87%8F"><span class="nav-number">5.2.</span> <span class="nav-text">查看会话数量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E6%96%B0%E7%9A%84%E4%BC%9A%E8%AF%9D"><span class="nav-number">5.3.</span> <span class="nav-text">创建新的会话</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9E%E6%8E%A5%E6%96%AD%E5%BC%80%E7%9A%84%E4%BC%9A%E8%AF%9D"><span class="nav-number">5.4.</span> <span class="nav-text">连接断开的会话</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">hao_ran</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/02/02/tmux%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hao_ran">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Technichen's blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="tmux入门笔记 | Technichen's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          tmux入门笔记
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2024-02-02 20:56:36 / 修改时间：21:01:42" itemprop="dateCreated datePublished" datetime="2024-02-02T20:56:36+08:00">2024-02-02</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="tmux是什么"><a href="#tmux是什么" class="headerlink" title="tmux是什么"></a>tmux是什么</h2><p>tmux是终端复用器(terminal multiplexer)的缩写，能够用来管理终端，使用户能够在使用多个终端的时候将各个终端管理得井井有条而不至于找不到想要操作的终端。</p>
+<h2 id="tmux的三个层级"><a href="#tmux的三个层级" class="headerlink" title="tmux的三个层级"></a>tmux的三个层级</h2><p>session（会话）、window（窗口）、pane（窗格）。</p>
+<p>概况来说：会话可以被放在后台运行，在一个会话中可以创建很多平行的窗口，在一个窗口中可以创建很多贴满窗口的窗格。</p>
+<h2 id="tmux的使用：窗口"><a href="#tmux的使用：窗口" class="headerlink" title="tmux的使用：窗口"></a>tmux的使用：窗口</h2><h3 id="打开tmux"><a href="#打开tmux" class="headerlink" title="打开tmux"></a>打开tmux</h3><p>打开tmux：在终端中输入tmux</p>
+<p><img src="https://s2.loli.net/2024/02/02/zJbKvMAD2xnmtiy.jpg" alt="img"> </p>
+<p>进入tmux后，终端的最下面有一个绿色任务栏。</p>
+<h3 id="打开新窗口"><a href="#打开新窗口" class="headerlink" title="打开新窗口"></a>打开新窗口</h3><p>打开新窗口：先输入Ctrl+b，然后输入c</p>
+<p><img src="https://s2.loli.net/2024/02/02/pWlEKXqS6ZBFs2d.jpg" alt="img"> </p>
+<p>此时可以看到下面的任务栏多了一个新的窗口。</p>
+<h3 id="在不同窗口之前切换"><a href="#在不同窗口之前切换" class="headerlink" title="在不同窗口之前切换"></a>在不同窗口之前切换</h3><p>在不同窗口之前切换：先输入Ctrl+b，再输入想要切换的窗口的数字号码。</p>
+<p><img src="https://s2.loli.net/2024/02/02/nPQVaeqSAufOdgi.jpg" alt="img"> </p>
+<p>此时可以看到当切换回0号窗口时，星标*回到了0号窗口上。</p>
+<p>除了上面的切换窗口的方法，也可以通过输入Ctrl+b p和Ctrl+b n来左右切换窗口。</p>
+<h3 id="关闭窗口"><a href="#关闭窗口" class="headerlink" title="关闭窗口"></a>关闭窗口</h3><p>关闭窗口：ctrl+b shift+7。</p>
+<p><img src="https://s2.loli.net/2024/02/02/6D932HyIvzCYgAd.jpg" alt="img"> </p>
+<p>当输入了Ctrl+b shift+7后，tmux会让你确认是否关闭该窗口，与在Linux系统中其他地方的确认不同，这里只需要按下字母y，不需要按下enter。</p>
+<h2 id="tmux的使用：窗格"><a href="#tmux的使用：窗格" class="headerlink" title="tmux的使用：窗格"></a>tmux的使用：窗格</h2><h3 id="创建新的窗格（左右）"><a href="#创建新的窗格（左右）" class="headerlink" title="创建新的窗格（左右）"></a>创建新的窗格（左右）</h3><p>创建新的窗格（左右）：Ctrl+b shift+5（%）</p>
+<p><img src="https://s2.loli.net/2024/02/02/vHKQUzcn2sjieaZ.jpg" alt="img"> </p>
+<h3 id="创建新的窗格（上下）"><a href="#创建新的窗格（上下）" class="headerlink" title="创建新的窗格（上下）"></a>创建新的窗格（上下）</h3><p>创建新的窗格（上下）：Ctrl+b shift+‘（“）</p>
+<p><img src="https://s2.loli.net/2024/02/02/RcX3wmFhEiqlsp5.jpg" alt="img"> </p>
+<h3 id="在窗格之间切换"><a href="#在窗格之间切换" class="headerlink" title="在窗格之间切换"></a>在窗格之间切换</h3><p>在窗格之间切换：Ctrl+b ‘上下左右’。</p>
+<p>此外还可以通过Ctrl+b q ‘数字’ 来选择在哪个窗口之间切换。</p>
+<p><img src="https://s2.loli.net/2024/02/02/5KVDm9fJXoSpAl6.jpg" alt="img"> </p>
+<p>这种方法对手速的要求比较高，因为当按下Ctrl+b q后，只会给一会儿的反应时间来让你看清楚想要跳转的窗格的数字编号并按下这个编号。</p>
+<h3 id="将窗格最大化-从最大化恢复"><a href="#将窗格最大化-从最大化恢复" class="headerlink" title="将窗格最大化&#x2F;从最大化恢复"></a>将窗格最大化&#x2F;从最大化恢复</h3><p>将窗格最大化：Ctrl+b z。</p>
+<p>将窗格从最大化恢复：再按一次Ctrl+b z。</p>
+<h3 id="关闭窗格"><a href="#关闭窗格" class="headerlink" title="关闭窗格"></a>关闭窗格</h3><p>关闭窗格：Ctrl+b x。</p>
+<p><img src="https://s2.loli.net/2024/02/02/FNwGqM2rmzuEj4p.jpg" alt="img"> </p>
+<p>与关闭窗口相同，tmux会询问你是否确认关闭该窗格。</p>
+<p>可以通过将窗口中的每一个窗格关闭的方式来关闭一个窗口。</p>
+<h3 id="查看所有的窗口、窗格"><a href="#查看所有的窗口、窗格" class="headerlink" title="查看所有的窗口、窗格"></a>查看所有的窗口、窗格</h3><p>查看所有的窗口、窗格：Ctel+b w。</p>
+<p><img src="https://s2.loli.net/2024/02/02/uzZ2qlp4PgmWyA5.jpg" alt="img"> </p>
+<p>此时可以通过键盘的上下左右来看每个窗口、窗格。</p>
+<h2 id="tmux的使用：会话"><a href="#tmux的使用：会话" class="headerlink" title="tmux的使用：会话"></a>tmux的使用：会话</h2><h3 id="断开当前会话"><a href="#断开当前会话" class="headerlink" title="断开当前会话"></a>断开当前会话</h3><p>断开当前会话：Ctrl+b d。</p>
+<p><img src="https://s2.loli.net/2024/02/02/GDfbFnmWJYT5pBO.jpg" alt="img"> </p>
+<p>此时可以看到tmux最下面的绿色任务栏不见了，这并不是tmux被关闭了，而是被放在了后台。通过终端的提示detached也可以知道这只是“断开连接”，并不是关闭。</p>
+<h3 id="查看会话数量"><a href="#查看会话数量" class="headerlink" title="查看会话数量"></a>查看会话数量</h3><p>在bash终端输入tmux ls。</p>
+<p><img src="https://s2.loli.net/2024/02/02/VBNWUcvYMjdGOp2.jpg" alt="img"> </p>
+<p>可以看到，当前创建了一个会话，这个会话的编号是0。</p>
+<h3 id="创建新的会话"><a href="#创建新的会话" class="headerlink" title="创建新的会话"></a>创建新的会话</h3><p>在bash终端中输入tmux即可。</p>
+<h3 id="连接断开的会话"><a href="#连接断开的会话" class="headerlink" title="连接断开的会话"></a>连接断开的会话</h3><p>连接断开的会话：tmux a -t ‘数字’。这里的a是attach的缩写，也可以将a替换为attach。</p>
+<p><img src="https://s2.loli.net/2024/02/02/MOGJZQoAVtKIy9n.jpg" alt="img"> </p>
+<p>如果想要连接最近断开的会话，可以直接输入tmux a。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2024/01/31/%E6%9B%B4%E6%8D%A2%E5%8D%9A%E5%AE%A2%E4%B8%BB%E9%A2%98%E7%9A%84%E6%9B%B2%E6%8A%98%E8%BF%87%E7%A8%8B/" rel="prev" title="更换博客主题的曲折过程">
+                  <i class="fa fa-angle-left"></i> 更换博客主题的曲折过程
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">hao_ran</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
