@@ -17,7 +17,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha256-yIDrPSXHZdOZhAqiBP7CKzIwMQmRCJ8UeB8Jo17YC4o=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
 
     <meta name="description" content="tmux是什么tmux是终端复用器(terminal multiplexer)的缩写，能够用来管理终端，使用户能够在使用多个终端的时候将各个终端管理得井井有条而不至于找不到想要操作的终端。 tmux的三个层级session（会话）、window（窗口）、pane（窗格）。 概况来说：会话可以被放在后台运行，在一个会话中可以创建很多平行的窗口，在一个窗口中可以创建很多贴满窗口的窗格。 tmux的使用">
 <meta property="og:type" content="article">
@@ -39,8 +39,11 @@
 <meta property="og:image" content="https://s2.loli.net/2024/02/02/VBNWUcvYMjdGOp2.jpg">
 <meta property="og:image" content="https://s2.loli.net/2024/02/02/MOGJZQoAVtKIy9n.jpg">
 <meta property="article:published_time" content="2024-02-02T12:56:36.000Z">
-<meta property="article:modified_time" content="2024-02-02T13:01:42.781Z">
+<meta property="article:modified_time" content="2024-02-08T09:28:50.531Z">
 <meta property="article:author" content="hao_ran">
+<meta property="article:tag" content="笔记">
+<meta property="article:tag" content="入门">
+<meta property="article:tag" content="tmux">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://s2.loli.net/2024/02/02/zJbKvMAD2xnmtiy.jpg">
 
@@ -75,6 +78,9 @@
       <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
   <div class="site-nav-toggle">
     <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
     </div>
   </div>
 
@@ -95,6 +101,10 @@
 
 
 
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+  </ul>
+</nav>
 
 
 
@@ -117,7 +127,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#tmux%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-number">1.</span> <span class="nav-text">tmux是什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tmux%E7%9A%84%E4%B8%89%E4%B8%AA%E5%B1%82%E7%BA%A7"><span class="nav-number">2.</span> <span class="nav-text">tmux的三个层级</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tmux%E7%9A%84%E4%BD%BF%E7%94%A8%EF%BC%9A%E7%AA%97%E5%8F%A3"><span class="nav-number">3.</span> <span class="nav-text">tmux的使用：窗口</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%93%E5%BC%80tmux"><span class="nav-number">3.1.</span> <span class="nav-text">打开tmux</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%93%E5%BC%80%E6%96%B0%E7%AA%97%E5%8F%A3"><span class="nav-number">3.2.</span> <span class="nav-text">打开新窗口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8%E4%B8%8D%E5%90%8C%E7%AA%97%E5%8F%A3%E4%B9%8B%E5%89%8D%E5%88%87%E6%8D%A2"><span class="nav-number">3.3.</span> <span class="nav-text">在不同窗口之前切换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B3%E9%97%AD%E7%AA%97%E5%8F%A3"><span class="nav-number">3.4.</span> <span class="nav-text">关闭窗口</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tmux%E7%9A%84%E4%BD%BF%E7%94%A8%EF%BC%9A%E7%AA%97%E6%A0%BC"><span class="nav-number">4.</span> <span class="nav-text">tmux的使用：窗格</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E6%96%B0%E7%9A%84%E7%AA%97%E6%A0%BC%EF%BC%88%E5%B7%A6%E5%8F%B3%EF%BC%89"><span class="nav-number">4.1.</span> <span class="nav-text">创建新的窗格（左右）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E6%96%B0%E7%9A%84%E7%AA%97%E6%A0%BC%EF%BC%88%E4%B8%8A%E4%B8%8B%EF%BC%89"><span class="nav-number">4.2.</span> <span class="nav-text">创建新的窗格（上下）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8%E7%AA%97%E6%A0%BC%E4%B9%8B%E9%97%B4%E5%88%87%E6%8D%A2"><span class="nav-number">4.3.</span> <span class="nav-text">在窗格之间切换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%86%E7%AA%97%E6%A0%BC%E6%9C%80%E5%A4%A7%E5%8C%96-%E4%BB%8E%E6%9C%80%E5%A4%A7%E5%8C%96%E6%81%A2%E5%A4%8D"><span class="nav-number">4.4.</span> <span class="nav-text">将窗格最大化&#x2F;从最大化恢复</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B3%E9%97%AD%E7%AA%97%E6%A0%BC"><span class="nav-number">4.5.</span> <span class="nav-text">关闭窗格</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E6%89%80%E6%9C%89%E7%9A%84%E7%AA%97%E5%8F%A3%E3%80%81%E7%AA%97%E6%A0%BC"><span class="nav-number">4.6.</span> <span class="nav-text">查看所有的窗口、窗格</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tmux%E7%9A%84%E4%BD%BF%E7%94%A8%EF%BC%9A%E4%BC%9A%E8%AF%9D"><span class="nav-number">5.</span> <span class="nav-text">tmux的使用：会话</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%AD%E5%BC%80%E5%BD%93%E5%89%8D%E4%BC%9A%E8%AF%9D"><span class="nav-number">5.1.</span> <span class="nav-text">断开当前会话</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E4%BC%9A%E8%AF%9D%E6%95%B0%E9%87%8F"><span class="nav-number">5.2.</span> <span class="nav-text">查看会话数量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E6%96%B0%E7%9A%84%E4%BC%9A%E8%AF%9D"><span class="nav-number">5.3.</span> <span class="nav-text">创建新的会话</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9E%E6%8E%A5%E6%96%AD%E5%BC%80%E7%9A%84%E4%BC%9A%E8%AF%9D"><span class="nav-number">5.4.</span> <span class="nav-text">连接断开的会话</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#tmux%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-number">1.</span> <span class="nav-text">tmux是什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tmux%E7%9A%84%E4%B8%89%E4%B8%AA%E5%B1%82%E7%BA%A7"><span class="nav-number">2.</span> <span class="nav-text">tmux的三个层级</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tmux%E7%9A%84%E4%BD%BF%E7%94%A8%EF%BC%9A%E7%AA%97%E5%8F%A3"><span class="nav-number">3.</span> <span class="nav-text">tmux的使用：窗口</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%93%E5%BC%80tmux"><span class="nav-number">3.1.</span> <span class="nav-text">打开tmux</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E6%96%B0%E7%AA%97%E5%8F%A3"><span class="nav-number">3.2.</span> <span class="nav-text">创建新窗口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%87%8D%E5%91%BD%E5%90%8D%E7%AA%97%E5%8F%A3"><span class="nav-number">3.3.</span> <span class="nav-text">重命名窗口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8%E4%B8%8D%E5%90%8C%E7%AA%97%E5%8F%A3%E4%B9%8B%E5%89%8D%E5%88%87%E6%8D%A2"><span class="nav-number">3.4.</span> <span class="nav-text">在不同窗口之前切换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B3%E9%97%AD%E7%AA%97%E5%8F%A3"><span class="nav-number">3.5.</span> <span class="nav-text">关闭窗口</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tmux%E7%9A%84%E4%BD%BF%E7%94%A8%EF%BC%9A%E7%AA%97%E6%A0%BC"><span class="nav-number">4.</span> <span class="nav-text">tmux的使用：窗格</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E6%96%B0%E7%9A%84%E7%AA%97%E6%A0%BC%EF%BC%88%E5%B7%A6%E5%8F%B3%EF%BC%89"><span class="nav-number">4.1.</span> <span class="nav-text">创建新的窗格（左右）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E6%96%B0%E7%9A%84%E7%AA%97%E6%A0%BC%EF%BC%88%E4%B8%8A%E4%B8%8B%EF%BC%89"><span class="nav-number">4.2.</span> <span class="nav-text">创建新的窗格（上下）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8%E7%AA%97%E6%A0%BC%E4%B9%8B%E9%97%B4%E5%88%87%E6%8D%A2"><span class="nav-number">4.3.</span> <span class="nav-text">在窗格之间切换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%8A%A8%E6%8E%92%E5%B8%83%E7%AA%97%E6%A0%BC"><span class="nav-number">4.4.</span> <span class="nav-text">自动排布窗格</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%86%E7%AA%97%E6%A0%BC%E6%9C%80%E5%A4%A7%E5%8C%96-%E4%BB%8E%E6%9C%80%E5%A4%A7%E5%8C%96%E6%81%A2%E5%A4%8D"><span class="nav-number">4.5.</span> <span class="nav-text">将窗格最大化&#x2F;从最大化恢复</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B3%E9%97%AD%E7%AA%97%E6%A0%BC"><span class="nav-number">4.6.</span> <span class="nav-text">关闭窗格</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E6%89%80%E6%9C%89%E7%9A%84%E7%AA%97%E5%8F%A3%E3%80%81%E7%AA%97%E6%A0%BC"><span class="nav-number">4.7.</span> <span class="nav-text">查看所有的窗口、窗格</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tmux%E7%9A%84%E4%BD%BF%E7%94%A8%EF%BC%9A%E4%BC%9A%E8%AF%9D"><span class="nav-number">5.</span> <span class="nav-text">tmux的使用：会话</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%AD%E5%BC%80%E5%BD%93%E5%89%8D%E4%BC%9A%E8%AF%9D"><span class="nav-number">5.1.</span> <span class="nav-text">断开当前会话</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E4%BC%9A%E8%AF%9D%E6%95%B0%E9%87%8F"><span class="nav-number">5.2.</span> <span class="nav-text">查看会话数量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E6%96%B0%E7%9A%84%E4%BC%9A%E8%AF%9D"><span class="nav-number">5.3.</span> <span class="nav-text">创建新的会话</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%9E%E6%8E%A5%E6%96%AD%E5%BC%80%E7%9A%84%E4%BC%9A%E8%AF%9D"><span class="nav-number">5.4.</span> <span class="nav-text">连接断开的会话</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A1%A5%E5%85%85"><span class="nav-number">6.</span> <span class="nav-text">补充</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -130,13 +140,19 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-count">23</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">1</span>
-        <span class="site-state-item-name">标签</span>
+          <a href="/tags/">
+        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
 </div>
@@ -190,12 +206,33 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2024-02-02 20:56:36 / 修改时间：21:01:42" itemprop="dateCreated datePublished" datetime="2024-02-02T20:56:36+08:00">2024-02-02</time>
+      <time title="创建时间：2024-02-02 20:56:36" itemprop="dateCreated datePublished" datetime="2024-02-02T20:56:36+08:00">2024-02-02</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-02-08 17:28:50" itemprop="dateModified" datetime="2024-02-08T17:28:50+08:00">2024-02-08</time>
     </span>
 
   
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.3k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>5 分钟</span>
+    </span>
 </div>
 
         </div>
@@ -210,9 +247,11 @@
 <h2 id="tmux的使用：窗口"><a href="#tmux的使用：窗口" class="headerlink" title="tmux的使用：窗口"></a>tmux的使用：窗口</h2><h3 id="打开tmux"><a href="#打开tmux" class="headerlink" title="打开tmux"></a>打开tmux</h3><p>打开tmux：在终端中输入tmux</p>
 <p><img src="https://s2.loli.net/2024/02/02/zJbKvMAD2xnmtiy.jpg" alt="img"> </p>
 <p>进入tmux后，终端的最下面有一个绿色任务栏。</p>
-<h3 id="打开新窗口"><a href="#打开新窗口" class="headerlink" title="打开新窗口"></a>打开新窗口</h3><p>打开新窗口：先输入Ctrl+b，然后输入c</p>
+<h3 id="创建新窗口"><a href="#创建新窗口" class="headerlink" title="创建新窗口"></a>创建新窗口</h3><p>创建新窗口：先输入Ctrl+b，然后输入c</p>
 <p><img src="https://s2.loli.net/2024/02/02/pWlEKXqS6ZBFs2d.jpg" alt="img"> </p>
 <p>此时可以看到下面的任务栏多了一个新的窗口。</p>
+<h3 id="重命名窗口"><a href="#重命名窗口" class="headerlink" title="重命名窗口"></a>重命名窗口</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Ctrl + b ,</span><br></pre></td></tr></table></figure>
+
 <h3 id="在不同窗口之前切换"><a href="#在不同窗口之前切换" class="headerlink" title="在不同窗口之前切换"></a>在不同窗口之前切换</h3><p>在不同窗口之前切换：先输入Ctrl+b，再输入想要切换的窗口的数字号码。</p>
 <p><img src="https://s2.loli.net/2024/02/02/nPQVaeqSAufOdgi.jpg" alt="img"> </p>
 <p>此时可以看到当切换回0号窗口时，星标*回到了0号窗口上。</p>
@@ -228,6 +267,8 @@
 <p>此外还可以通过Ctrl+b q ‘数字’ 来选择在哪个窗口之间切换。</p>
 <p><img src="https://s2.loli.net/2024/02/02/5KVDm9fJXoSpAl6.jpg" alt="img"> </p>
 <p>这种方法对手速的要求比较高，因为当按下Ctrl+b q后，只会给一会儿的反应时间来让你看清楚想要跳转的窗格的数字编号并按下这个编号。</p>
+<h3 id="自动排布窗格"><a href="#自动排布窗格" class="headerlink" title="自动排布窗格"></a>自动排布窗格</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Ctrl + b &lt;space&gt;</span><br></pre></td></tr></table></figure>
+
 <h3 id="将窗格最大化-从最大化恢复"><a href="#将窗格最大化-从最大化恢复" class="headerlink" title="将窗格最大化&#x2F;从最大化恢复"></a>将窗格最大化&#x2F;从最大化恢复</h3><p>将窗格最大化：Ctrl+b z。</p>
 <p>将窗格从最大化恢复：再按一次Ctrl+b z。</p>
 <h3 id="关闭窗格"><a href="#关闭窗格" class="headerlink" title="关闭窗格"></a>关闭窗格</h3><p>关闭窗格：Ctrl+b x。</p>
@@ -243,10 +284,15 @@
 <h3 id="查看会话数量"><a href="#查看会话数量" class="headerlink" title="查看会话数量"></a>查看会话数量</h3><p>在bash终端输入tmux ls。</p>
 <p><img src="https://s2.loli.net/2024/02/02/VBNWUcvYMjdGOp2.jpg" alt="img"> </p>
 <p>可以看到，当前创建了一个会话，这个会话的编号是0。</p>
-<h3 id="创建新的会话"><a href="#创建新的会话" class="headerlink" title="创建新的会话"></a>创建新的会话</h3><p>在bash终端中输入tmux即可。</p>
+<h3 id="创建新的会话"><a href="#创建新的会话" class="headerlink" title="创建新的会话"></a>创建新的会话</h3><p>在bash终端中输入tmux即可，这样会按照数字编号创建新的会话。</p>
+<p>如果输入</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tmux new -t &quot;name&quot;</span><br></pre></td></tr></table></figure>
+
+<p>则会创建新的名为name的会话。</p>
 <h3 id="连接断开的会话"><a href="#连接断开的会话" class="headerlink" title="连接断开的会话"></a>连接断开的会话</h3><p>连接断开的会话：tmux a -t ‘数字’。这里的a是attach的缩写，也可以将a替换为attach。</p>
 <p><img src="https://s2.loli.net/2024/02/02/MOGJZQoAVtKIy9n.jpg" alt="img"> </p>
 <p>如果想要连接最近断开的会话，可以直接输入tmux a。</p>
+<h2 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h2><p>建议将默认的prefix<code>Ctrl + b</code>改掉，因为在很多软件中<code>Ctrl + b</code>也有别的用处。</p>
 
     </div>
 
@@ -255,6 +301,11 @@
     
 
     <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E7%AC%94%E8%AE%B0/" rel="tag"># 笔记</a>
+              <a href="/tags/%E5%85%A5%E9%97%A8/" rel="tag"># 入门</a>
+              <a href="/tags/tmux/" rel="tag"># tmux</a>
+          </div>
 
         
 
@@ -286,26 +337,34 @@
     <div class="footer-inner">
 
   <div class="copyright">
-    &copy; 
+    &copy; 2023 – 
     <span itemprop="copyrightYear">2024</span>
     <span class="with-love">
       <i class="fa fa-heart"></i>
     </span>
     <span class="author" itemprop="copyrightHolder">hao_ran</span>
   </div>
-  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">25k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:37</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
   </div>
 
     </div>
   </footer>
 
   
-  <div class="toggle sidebar-toggle" role="button">
-    <span class="toggle-line"></span>
-    <span class="toggle-line"></span>
-    <span class="toggle-line"></span>
-  </div>
-  <div class="sidebar-dimmer"></div>
   <div class="back-to-top" role="button" aria-label="返回顶部">
     <i class="fa fa-arrow-up fa-lg"></i>
     <span>0%</span>
@@ -318,7 +377,7 @@
 
   
   <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
-<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
 
   
 

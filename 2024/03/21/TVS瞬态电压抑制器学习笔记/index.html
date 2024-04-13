@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha256-yIDrPSXHZdOZhAqiBP7CKzIwMQmRCJ8UeB8Jo17YC4o=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="什么是TVSTVS（Transient Voltage Suppressor，瞬态电压抑制器）是一种特殊的二极管，分双极型和单极型两种，双极型的TVS管具有双向稳压的功能。 当被保护电路瞬间出现浪涌脉冲电压时，双向击穿二极管能迅速齐纳击穿，由高阻状态变为低阻状态，对浪涌电压进行分流和箝位，从而保护电路中各元件不被瞬间浪涌脉冲电压损坏。（摘自百度百科） TVS的实现原理齐纳二极管（即稳压二极管）具有">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TVS瞬态电压抑制器学习笔记">
+<meta property="og:url" content="http://example.com/2024/03/21/TVS%E7%9E%AC%E6%80%81%E7%94%B5%E5%8E%8B%E6%8A%91%E5%88%B6%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="Technichen&#39;s blog">
+<meta property="og:description" content="什么是TVSTVS（Transient Voltage Suppressor，瞬态电压抑制器）是一种特殊的二极管，分双极型和单极型两种，双极型的TVS管具有双向稳压的功能。 当被保护电路瞬间出现浪涌脉冲电压时，双向击穿二极管能迅速齐纳击穿，由高阻状态变为低阻状态，对浪涌电压进行分流和箝位，从而保护电路中各元件不被瞬间浪涌脉冲电压损坏。（摘自百度百科） TVS的实现原理齐纳二极管（即稳压二极管）具有">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2024/03/28/rkdWq5G4KtixApa.png">
+<meta property="article:published_time" content="2024-03-21T14:57:00.000Z">
+<meta property="article:modified_time" content="2024-03-28T13:20:28.796Z">
+<meta property="article:author" content="hao_ran">
+<meta property="article:tag" content="笔记">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2024/03/28/rkdWq5G4KtixApa.png">
+
+
+<link rel="canonical" href="http://example.com/2024/03/21/TVS%E7%9E%AC%E6%80%81%E7%94%B5%E5%8E%8B%E6%8A%91%E5%88%B6%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2024/03/21/TVS%E7%9E%AC%E6%80%81%E7%94%B5%E5%8E%8B%E6%8A%91%E5%88%B6%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/","path":"2024/03/21/TVS瞬态电压抑制器学习笔记/","title":"TVS瞬态电压抑制器学习笔记"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>TVS瞬态电压抑制器学习笔记 | Technichen's blog</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Technichen's blog</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFTVS"><span class="nav-number">1.</span> <span class="nav-text">什么是TVS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TVS%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86"><span class="nav-number">2.</span> <span class="nav-text">TVS的实现原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TVS%E7%AE%A1%E5%92%8C%E7%A8%B3%E5%8E%8B%E4%BA%8C%E6%9E%81%E7%AE%A1%E7%9A%84%E4%B8%8D%E5%90%8C%E4%B9%8B%E5%A4%84"><span class="nav-number">3.</span> <span class="nav-text">TVS管和稳压二极管的不同之处</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E9%94%AE%E5%8F%82%E6%95%B0"><span class="nav-number">4.</span> <span class="nav-text">关键参数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1%E3%80%81%E6%88%AA%E6%AD%A2%E7%94%B5%E5%8E%8BVRWM%EF%BC%88Stand-off-Voltage%EF%BC%89"><span class="nav-number">4.1.</span> <span class="nav-text">1、截止电压VRWM（Stand-off Voltage）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2%E3%80%81%E5%87%BB%E7%A9%BF%E7%94%B5%E5%8E%8BVBR%EF%BC%88Breakdown-Voltage%EF%BC%89"><span class="nav-number">4.2.</span> <span class="nav-text">2、击穿电压VBR（Breakdown Voltage）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3%E3%80%81%E9%92%B3%E4%BD%8D%E7%94%B5%E5%8E%8BVC%EF%BC%88Clamping-Voltage%EF%BC%89"><span class="nav-number">4.3.</span> <span class="nav-text">3、钳位电压VC（Clamping Voltage）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4%E3%80%81%E5%B3%B0%E5%80%BC%E8%84%89%E5%86%B2%E7%94%B5%E6%B5%81IPP%EF%BC%88Peak-Pulse-Current%EF%BC%89"><span class="nav-number">4.4.</span> <span class="nav-text">4、峰值脉冲电流IPP（Peak Pulse Current）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5%E3%80%81%E5%B3%B0%E5%80%BC%E8%84%89%E5%86%B2%E5%8A%9F%E7%8E%87PPPM%EF%BC%88Maximum-peak-pulse-power%EF%BC%89"><span class="nav-number">4.5.</span> <span class="nav-text">5、峰值脉冲功率PPPM（Maximum peak pulse power）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%89%E5%9E%8B%E8%A7%84%E8%8C%83"><span class="nav-number">5.</span> <span class="nav-text">选型规范</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B7%A5%E7%A8%8B%E5%AE%9E%E8%B7%B5"><span class="nav-number">6.</span> <span class="nav-text">工程实践</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#SMF12CA%E4%BB%8B%E7%BB%8D"><span class="nav-number">6.1.</span> <span class="nav-text">SMF12CA介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E8%B7%B5%E5%8E%9F%E7%90%86%E5%9B%BE"><span class="nav-number">6.2.</span> <span class="nav-text">实践原理图</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">hao_ran</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/03/21/TVS%E7%9E%AC%E6%80%81%E7%94%B5%E5%8E%8B%E6%8A%91%E5%88%B6%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hao_ran">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Technichen's blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="TVS瞬态电压抑制器学习笔记 | Technichen's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          TVS瞬态电压抑制器学习笔记
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2024-03-21 22:57:00" itemprop="dateCreated datePublished" datetime="2024-03-21T22:57:00+08:00">2024-03-21</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-03-28 21:20:28" itemprop="dateModified" datetime="2024-03-28T21:20:28+08:00">2024-03-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%94%B5%E5%AD%90%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">电子技术</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.4k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>5 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="什么是TVS"><a href="#什么是TVS" class="headerlink" title="什么是TVS"></a>什么是TVS</h2><p>TVS（Transient Voltage Suppressor，瞬态电压抑制器）是一种特殊的二极管，分双极型和单极型两种，双极型的TVS管具有双向稳压的功能。</p>
+<p>当被保护电路瞬间出现浪涌脉冲电压时，双向击穿二极管能迅速齐纳击穿，由高阻状态变为低阻状态，对浪涌电压进行分流和箝位，从而保护电路中各元件不被瞬间浪涌脉冲电压损坏。（摘自百度百科）</p>
+<h2 id="TVS的实现原理"><a href="#TVS的实现原理" class="headerlink" title="TVS的实现原理"></a>TVS的实现原理</h2><p>齐纳二极管（即稳压二极管）具有单向稳压功能，TVS的实现原理是将两个齐纳二极管的阳极串联起来，从而达到双向的稳压功能。</p>
+<h2 id="TVS管和稳压二极管的不同之处"><a href="#TVS管和稳压二极管的不同之处" class="headerlink" title="TVS管和稳压二极管的不同之处"></a>TVS管和稳压二极管的不同之处</h2><p>稳压二极管一般不会讲响应时间，更多的是关注稳压值，但是对于TVS二极管不一样，它的特性决定着它拥有不同的作用，TVS二极管具有瞬态抑制高能量作用，因此要求在较短时间内把较高能量瞬间吸收，因此这个时间很短，达到纳秒级别。</p>
+<p>从功率来看，稳压二极管的功率比TVS管的功率要低。TVS管的瞬时功率很高。</p>
+<h2 id="关键参数"><a href="#关键参数" class="headerlink" title="关键参数"></a>关键参数</h2><h3 id="1、截止电压VRWM（Stand-off-Voltage）"><a href="#1、截止电压VRWM（Stand-off-Voltage）" class="headerlink" title="1、截止电压VRWM（Stand-off Voltage）"></a>1、截止电压VRWM（Stand-off Voltage）</h3><p>截止电压指的是不引起TVS管工作的最高工作电压。在VRWM下，TVS是不工作的，即不导通。换一句话，被保护电路的最高工作电压必须小于VRWM，否则将会导致TVS工作导致电路异常。</p>
+<h3 id="2、击穿电压VBR（Breakdown-Voltage）"><a href="#2、击穿电压VBR（Breakdown-Voltage）" class="headerlink" title="2、击穿电压VBR（Breakdown Voltage）"></a>2、击穿电压VBR（Breakdown Voltage）</h3><p>击穿电压，指的是在接近发生雪崩的电流条件下测得的TVS两端的电压。</p>
+<h3 id="3、钳位电压VC（Clamping-Voltage）"><a href="#3、钳位电压VC（Clamping-Voltage）" class="headerlink" title="3、钳位电压VC（Clamping Voltage）"></a>3、钳位电压VC（Clamping Voltage）</h3><p>钳位电压，指的是施加规定波形的峰值脉冲电流IPP时，TVS两端测得的峰值电压。钳位电压VC应该小于被保护电路的损坏电压。</p>
+<h3 id="4、峰值脉冲电流IPP（Peak-Pulse-Current）"><a href="#4、峰值脉冲电流IPP（Peak-Pulse-Current）" class="headerlink" title="4、峰值脉冲电流IPP（Peak Pulse Current）"></a>4、峰值脉冲电流IPP（Peak Pulse Current）</h3><p>峰值脉冲电流是衡量TVS在电路保护中抵抗浪涌脉冲电流及限制电压能力的参数。对于相同型号TVS，在相同IPP下的VC越小，说明TVS的钳位特性越好。同型号的TVS，IPP 越大，耐脉冲电流冲击能力越强。</p>
+<h3 id="5、峰值脉冲功率PPPM（Maximum-peak-pulse-power）"><a href="#5、峰值脉冲功率PPPM（Maximum-peak-pulse-power）" class="headerlink" title="5、峰值脉冲功率PPPM（Maximum peak pulse power）"></a>5、峰值脉冲功率PPPM（Maximum peak pulse power）</h3><p>峰值脉冲功率用来衡量TVS能够承受的最大功率，PPPM&#x3D;VCxIPP，PPPM需要大于电路中可能出现的浪涌能量功率。</p>
+<h2 id="选型规范"><a href="#选型规范" class="headerlink" title="选型规范"></a>选型规范</h2><ol>
+<li>VRWM，明确TVS的最大反向工作电压，需要保证被保护信号的工作电压略小于VRWM，VRWM&#x3D;信号工作电压x(1.1~1.2倍系数)。</li>
+<li>VC，VC帮助我们判断TVS管的钳位电压是否能和后级电路适配。需要保证VC不超过后级电路的最高承受电压，VC&lt;Vmax(后级电路的最高承受电压)。</li>
+<li>IPP，IPP用于判断TVS对瞬时脉冲能量的耐受程度，越大越好。</li>
+</ol>
+<h2 id="工程实践"><a href="#工程实践" class="headerlink" title="工程实践"></a>工程实践</h2><p>我使用过的TVS有SMF12CA，是我在绘制USB与CH340模块的时候使用的，CH340可以使用上位机的USB线进行供电，为了防止瞬时电压过高损坏CH340，于是增加了一个SMF12CA于USB线的供电与地之间。</p>
+<h3 id="SMF12CA介绍"><a href="#SMF12CA介绍" class="headerlink" title="SMF12CA介绍"></a>SMF12CA介绍</h3><p>通过翻阅数据手册可以知道，SMF12CA的特性如下：</p>
+<ul>
+<li><p>截止电压VRWM：12V</p>
+</li>
+<li><p>击穿电压VBR：13.3V-14.7V</p>
+</li>
+<li><p>钳位电压VC：19.9V</p>
+</li>
+<li><p>峰值脉冲电流IPP：10.1A</p>
+</li>
+<li><p>峰值脉冲功率：200W</p>
+</li>
+</ul>
+<p>值得一提的是，在翻阅数据手册的过程中，我发现了SMF12CA中“12”就表示这个TVS管的截止电压是12V。该系列TVS管都以SMF+数字+字母构成，数字是多少说明TVS管的截止电压是多少，字母是CA表示是双极型TVS，字母是A表示是单极型TVS。</p>
+<h3 id="实践原理图"><a href="#实践原理图" class="headerlink" title="实践原理图"></a>实践原理图</h3><p><img src="https://s2.loli.net/2024/03/28/rkdWq5G4KtixApa.png" alt="image-20240328163248571"></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E7%AC%94%E8%AE%B0/" rel="tag"># 笔记</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2024/03/19/Chisel%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0/" rel="prev" title="Chisel入门笔记">
+                  <i class="fa fa-angle-left"></i> Chisel入门笔记
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2024/03/23/GDB%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0/" rel="next" title="GDB入门笔记">
+                  GDB入门笔记 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2023 – 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">hao_ran</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">25k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:37</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

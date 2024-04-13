@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha256-yIDrPSXHZdOZhAqiBP7CKzIwMQmRCJ8UeB8Jo17YC4o=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="为什么高速pcb要阻抗匹配高速PCB需要阻抗匹配，使信号不会反射，能够通畅到达目的地。 为什么高速PCB需要阻抗匹配，而低速PCB不需要阻抗匹配？因为低速PCB的信号频率低，波长长，阻抗不匹配造成的反射对信号影响小，而高速PCB信号频率高，波长短，阻抗不匹配造成的反射对信号影响很大，反射会造成信号严重失真。 或者也可以换一个理解的角度，之所以有特性阻抗，是因为传输线有寄生电阻、寄生电容、寄生电感，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PCB阻抗匹配学习笔记">
+<meta property="og:url" content="http://example.com/2024/03/27/PCB%E9%98%BB%E6%8A%97%E5%8C%B9%E9%85%8D%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="Technichen&#39;s blog">
+<meta property="og:description" content="为什么高速pcb要阻抗匹配高速PCB需要阻抗匹配，使信号不会反射，能够通畅到达目的地。 为什么高速PCB需要阻抗匹配，而低速PCB不需要阻抗匹配？因为低速PCB的信号频率低，波长长，阻抗不匹配造成的反射对信号影响小，而高速PCB信号频率高，波长短，阻抗不匹配造成的反射对信号影响很大，反射会造成信号严重失真。 或者也可以换一个理解的角度，之所以有特性阻抗，是因为传输线有寄生电阻、寄生电容、寄生电感，">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-03-27T08:27:57.000Z">
+<meta property="article:modified_time" content="2024-03-27T15:14:18.754Z">
+<meta property="article:author" content="hao_ran">
+<meta property="article:tag" content="笔记">
+<meta property="article:tag" content="PCB">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2024/03/27/PCB%E9%98%BB%E6%8A%97%E5%8C%B9%E9%85%8D%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2024/03/27/PCB%E9%98%BB%E6%8A%97%E5%8C%B9%E9%85%8D%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/","path":"2024/03/27/PCB阻抗匹配学习笔记/","title":"PCB阻抗匹配学习笔记"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>PCB阻抗匹配学习笔记 | Technichen's blog</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Technichen's blog</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E9%AB%98%E9%80%9Fpcb%E8%A6%81%E9%98%BB%E6%8A%97%E5%8C%B9%E9%85%8D"><span class="nav-number">1.</span> <span class="nav-text">为什么高速pcb要阻抗匹配</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%89%B9%E6%80%A7%E9%98%BB%E6%8A%97%E5%92%8C%E7%94%B5%E8%B7%AF%E5%8E%9F%E7%90%86%E5%AD%A6%E4%B9%A0%E7%9A%84%E9%98%BB%E6%8A%97%E4%B8%8D%E4%B8%80%E6%A0%B7"><span class="nav-number">2.</span> <span class="nav-text">特性阻抗和电路原理学习的阻抗不一样</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%98%BB%E6%8A%97%E5%8C%B9%E9%85%8D%E8%81%94%E7%B3%BB%E9%AB%98%E4%B8%AD%E7%89%A9%E7%90%86"><span class="nav-number">3.</span> <span class="nav-text">阻抗匹配联系高中物理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E2%80%9C%E7%89%B9%E6%80%A7%E9%98%BB%E6%8A%97%E2%80%9D%E5%92%8C%E2%80%9C%E5%B7%AE%E5%88%86%E7%BA%BF%E2%80%9D%E8%BF%99%E4%B8%A4%E4%B8%AA%E6%A6%82%E5%BF%B5%E4%B9%8B%E9%97%B4%E6%B2%A1%E6%9C%89%E5%BF%85%E7%84%B6%E8%81%94%E7%B3%BB"><span class="nav-number">4.</span> <span class="nav-text">“特性阻抗”和“差分线”这两个概念之间没有必然联系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PCB%E9%98%BB%E6%8A%97%E5%A6%82%E4%BD%95%E8%AE%BE%E7%BD%AE"><span class="nav-number">5.</span> <span class="nav-text">PCB阻抗如何设置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B7%AE%E5%88%86%E7%BA%BF%E7%AD%89%E9%95%BF%E4%B8%8E%E9%98%BB%E6%8A%97%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="nav-number">6.</span> <span class="nav-text">差分线等长与阻抗的关系</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">hao_ran</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/03/27/PCB%E9%98%BB%E6%8A%97%E5%8C%B9%E9%85%8D%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hao_ran">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Technichen's blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="PCB阻抗匹配学习笔记 | Technichen's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          PCB阻抗匹配学习笔记
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2024-03-27 16:27:57 / 修改时间：23:14:18" itemprop="dateCreated datePublished" datetime="2024-03-27T16:27:57+08:00">2024-03-27</time>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.3k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>5 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="为什么高速pcb要阻抗匹配"><a href="#为什么高速pcb要阻抗匹配" class="headerlink" title="为什么高速pcb要阻抗匹配"></a>为什么高速pcb要阻抗匹配</h2><p>高速PCB需要阻抗匹配，使信号不会反射，能够通畅到达目的地。</p>
+<p>为什么高速PCB需要阻抗匹配，而低速PCB不需要阻抗匹配？因为低速PCB的信号频率低，波长长，阻抗不匹配造成的反射对信号影响小，而高速PCB信号频率高，波长短，阻抗不匹配造成的反射对信号影响很大，反射会造成信号严重失真。</p>
+<p>或者也可以换一个理解的角度，之所以有特性阻抗，是因为传输线有寄生电阻、寄生电容、寄生电感，而我们知道电容和电感在交流电中起作用，且交流频率越高，作用越明显，所以对于高速pcb，特性阻抗对电路信号传输的影响就会变大，所以一般在高速pcb中要考虑阻抗匹配。</p>
+<h2 id="特性阻抗和电路原理学习的阻抗不一样"><a href="#特性阻抗和电路原理学习的阻抗不一样" class="headerlink" title="特性阻抗和电路原理学习的阻抗不一样"></a>特性阻抗和电路原理学习的阻抗不一样</h2><p>电路原理学习的阻抗是将电路看做二端口网络得到网络的阻抗。</p>
+<p>特性阻抗是传输线由于存在寄生电阻、寄生电容、寄生电感而存在的阻抗，可以理解为这个传输线各点的特性，这意味着当我们说这个传输线的特性阻抗是多少欧姆的时候，我们不需要考虑传输线的长短（即，特性阻抗与传输线长短无关）。就像是一个铜导线的材质是铜，它的硬度等物理特性由铜这个材质、加工工艺等内容决定，但是与导线的长度无关。</p>
+<p>由于特性阻抗和阻抗都是描述电路特性的物理量，都与电压、电流的比值有关，并且单位都是欧姆，两者之前存在许多相似性，所以容易使人搞混，但是我们应该知道<strong>特性阻抗和电路原理学习的阻抗不一样</strong>。</p>
+<h2 id="阻抗匹配联系高中物理"><a href="#阻抗匹配联系高中物理" class="headerlink" title="阻抗匹配联系高中物理"></a>阻抗匹配联系高中物理</h2><p>阻抗匹配就是让信号源、传输线、负载的阻抗相同，以达到信号顺利传递的目标。</p>
+<p>我想起了在高中物理当中，有一类题目是给定一个存在内阻的电压源，如何使负载功率最大。可以通过不等式或者求导得到当负载电阻与电压源内阻相等时，负载功率最大。</p>
+<p>负载功率最大不就可以看做是信号（能量）顺利传递嘛。</p>
+<p>从这个视角来说在高中我们就接触过了电阻匹配这个概念。</p>
+<h2 id="“特性阻抗”和“差分线”这两个概念之间没有必然联系"><a href="#“特性阻抗”和“差分线”这两个概念之间没有必然联系" class="headerlink" title="“特性阻抗”和“差分线”这两个概念之间没有必然联系"></a>“特性阻抗”和“差分线”这两个概念之间没有必然联系</h2><p>在学习高速pcb设计时，“特性阻抗”和“差分线”这两个概念往往同时出现，使人以为这两者是绑定在一起的，实际上不是这样的。</p>
+<p>特性阻抗是一种性质，可以说任何传输线都有特性阻抗这个性质。</p>
+<p>差分线指的是两根传输差模信号（又称差分信号）的线。在高速pcb中，差分线往往是一定会出现的。但是这不意味着差分线只在高速pcb中出现，在许多对传输信号抗噪声要求较高的地方都有差分线的存在，最令人熟知的就是RS485标准。</p>
+<p>通过上面的表述，就不难知道为什么高速pcb中总是把“特性阻抗”和“差分线”放在一起说了，都是为了信号能够以高质量传输。</p>
+<h2 id="PCB阻抗如何设置"><a href="#PCB阻抗如何设置" class="headerlink" title="PCB阻抗如何设置"></a>PCB阻抗如何设置</h2><p>在高速PCB中，一个信号往往使用两条线进行传输，这两条线称为阻抗对、差分对、差分阻抗对。</p>
+<p>像HDMI、USB这些设备都有规定的阻抗，需要在设计PCB的时候对走线进行设置，如设置差分对的线宽和间距，以满足阻抗匹配的要求。</p>
+<p>使用阻抗计算工具，我们可以通过输入pcb层数、厚度、铜厚、阻抗要求等内容来计算出需要设计怎么样的线路（如果是单端走线，就会告诉你要设计怎么样的线宽；如果是差分走线，就会告诉你要设计怎么样的线宽和线距）。</p>
+<p>阻抗匹配不仅可以通过走线来实现，也可以通过放置元器件来实现。</p>
+<h2 id="差分线等长与阻抗的关系"><a href="#差分线等长与阻抗的关系" class="headerlink" title="差分线等长与阻抗的关系"></a>差分线等长与阻抗的关系</h2><p>差分线等长与阻抗无关，之所以要等长是为了使两个差分线的差分信号相位相同，方便两个差分信号做减法。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E7%AC%94%E8%AE%B0/" rel="tag"># 笔记</a>
+              <a href="/tags/PCB/" rel="tag"># PCB</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2024/03/23/GDB%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0/" rel="prev" title="GDB入门笔记">
+                  <i class="fa fa-angle-left"></i> GDB入门笔记
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2024/03/27/%E9%AB%98%E9%80%9FPCB%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0/" rel="next" title="高速PCB入门笔记">
+                  高速PCB入门笔记 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2023 – 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">hao_ran</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">25k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:37</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
