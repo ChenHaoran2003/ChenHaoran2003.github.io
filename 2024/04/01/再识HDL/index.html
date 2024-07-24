@@ -27,7 +27,7 @@
 <meta property="og:description" content="距离大二学习Verilog到现在过去了一年多，在进行ysyx的过程中，我复习了Verilog，并且学习了Chisel。时隔一年多，再次接触HDL（硬件描述语言）又有了一些不一样的关注点和收获，这篇文章用来记录这些新的收获。  这篇文章也算是对于南京大学的数字电路与计算机组成实验的一篇笔记。  Verilog的多个层次建模方式在第一次学习Verilog的过程中，便学习到了Verilog能够在多个层次">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-04-01T14:58:43.000Z">
-<meta property="article:modified_time" content="2024-04-01T15:18:46.634Z">
+<meta property="article:modified_time" content="2024-04-29T12:03:39.678Z">
 <meta property="article:author" content="hao_ran">
 <meta property="article:tag" content="感想">
 <meta name="twitter:card" content="summary">
@@ -112,7 +112,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Verilog%E7%9A%84%E5%A4%9A%E4%B8%AA%E5%B1%82%E6%AC%A1%E5%BB%BA%E6%A8%A1%E6%96%B9%E5%BC%8F"><span class="nav-number">1.</span> <span class="nav-text">Verilog的多个层次建模方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E6%B5%81%E5%BB%BA%E6%A8%A1"><span class="nav-number">1.1.</span> <span class="nav-text">数据流建模</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%93%E6%9E%84%E5%8C%96%E5%BB%BA%E6%A8%A1"><span class="nav-number">1.2.</span> <span class="nav-text">结构化建模</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A1%8C%E4%B8%BA%E5%BB%BA%E6%A8%A1"><span class="nav-number">1.3.</span> <span class="nav-text">行为建模</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Verilog%E7%9A%84%E5%A4%9A%E4%B8%AA%E5%B1%82%E6%AC%A1%E5%BB%BA%E6%A8%A1%E6%96%B9%E5%BC%8F"><span class="nav-number">1.</span> <span class="nav-text">Verilog的多个层次建模方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E6%B5%81%E5%BB%BA%E6%A8%A1"><span class="nav-number">1.1.</span> <span class="nav-text">数据流建模</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%93%E6%9E%84%E5%8C%96%E5%BB%BA%E6%A8%A1"><span class="nav-number">1.2.</span> <span class="nav-text">结构化建模</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A1%8C%E4%B8%BA%E5%BB%BA%E6%A8%A1"><span class="nav-number">1.3.</span> <span class="nav-text">行为建模</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8A%B6%E6%80%81%E6%9C%BA"><span class="nav-number">2.</span> <span class="nav-text">状态机</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Moore%E5%9E%8B%E6%9C%89%E9%99%90%E7%8A%B6%E6%80%81%E6%9C%BA"><span class="nav-number">2.1.</span> <span class="nav-text">Moore型有限状态机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Mealy%E5%9E%8B%E6%9C%89%E9%99%90%E7%8A%B6%E6%80%81%E6%9C%BA"><span class="nav-number">2.2.</span> <span class="nav-text">Mealy型有限状态机</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -125,18 +125,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-count">29</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">8</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-count">23</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -191,9 +191,15 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2024-04-01 22:58:43 / 修改时间：23:18:46" itemprop="dateCreated datePublished" datetime="2024-04-01T22:58:43+08:00">2024-04-01</time>
+      <time title="创建时间：2024-04-01 22:58:43" itemprop="dateCreated datePublished" datetime="2024-04-01T22:58:43+08:00">2024-04-01</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-04-29 20:03:39" itemprop="dateModified" datetime="2024-04-29T20:03:39+08:00">2024-04-29</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -212,14 +218,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>1.1k</span>
+      <span>1.4k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>4 分钟</span>
+      <span>5 分钟</span>
     </span>
 </div>
 
@@ -246,6 +252,13 @@
 <p>代码示例：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">module mux21c(a,b,s,y);</span><br><span class="line">  input   a,b,s;</span><br><span class="line">  output reg  y;   // y在always块中被赋值，一定要声明为reg型的变量</span><br><span class="line"></span><br><span class="line">  always @ (*)</span><br><span class="line">    if(s==0)</span><br><span class="line">      y = a;</span><br><span class="line">    else</span><br><span class="line">      y = b;</span><br><span class="line">endmodule</span><br></pre></td></tr></table></figure>
 
+<h2 id="状态机"><a href="#状态机" class="headerlink" title="状态机"></a>状态机</h2><p>状态机一般指有限状态机，有限状态机分为Moore型有限状态机和Mealy型有限状态机。</p>
+<h3 id="Moore型有限状态机"><a href="#Moore型有限状态机" class="headerlink" title="Moore型有限状态机"></a>Moore型有限状态机</h3><p>输出信号只与状态机的当前状态有关，与输入信号的当前值无关。输入信号影响下一次输出。</p>
+<p>当输入信号在一个周期内的任意时刻发生变化，输出信号要在下一时钟周期发生变化。</p>
+<p>特点：Moore状态机的输出信号和输入信号隔离开了。</p>
+<h3 id="Mealy型有限状态机"><a href="#Mealy型有限状态机" class="headerlink" title="Mealy型有限状态机"></a>Mealy型有限状态机</h3><p>输出状态不仅仅与状态机的当前状态有关，与输入信号的当前值也有关。</p>
+<p>当输入信号在一个周期内的任意时刻发生变化，输出信号同时发生变化。</p>
+<p>特点：输入信号的噪声可能影响输出信号。</p>
 
     </div>
 
@@ -267,6 +280,9 @@
                 </a>
             </div>
             <div class="post-nav-item">
+                <a href="/2024/04/23/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E2%80%94%E2%80%94%E6%A0%91%E5%92%8C%E4%BA%8C%E5%8F%89%E6%A0%91/" rel="next" title="数据结构——树和二叉树">
+                  数据结构——树和二叉树 <i class="fa fa-angle-right"></i>
+                </a>
             </div>
           </div>
     </footer>
@@ -297,13 +313,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">25k</span>
+    <span title="站点总字数">36k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">1:37</span>
+    <span title="站点阅读时长">2:17</span>
   </span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动

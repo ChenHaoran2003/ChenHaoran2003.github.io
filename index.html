@@ -119,18 +119,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-count">29</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">8</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-count">23</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -147,6 +147,779 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/07/24/git%E4%B8%AD%E7%9A%84reset/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hao_ran">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Technichen's blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Technichen's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2024/07/24/git%E4%B8%AD%E7%9A%84reset/" class="post-title-link" itemprop="url">git中的reset</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2024-07-24 23:03:50 / 修改时间：23:23:20" itemprop="dateCreated datePublished" datetime="2024-07-24T23:03:50+08:00">2024-07-24</time>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>476</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>git中的reset有三种模式，mixed、soft、hard。</p>
+<h2 id="mixed"><a href="#mixed" class="headerlink" title="mixed"></a>mixed</h2><p>mixed是reset的默认模式，所以输入</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset HEAD &lt;file&gt;</span><br></pre></td></tr></table></figure>
+
+<p>和</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset --mixed HEAD &lt;file&gt;</span><br></pre></td></tr></table></figure>
+
+<p>的效果是一样的。</p>
+<p>使用mixed模式，能够使暂存区的内容消失，但是工作区的内容不变。</p>
+<h2 id="soft"><a href="#soft" class="headerlink" title="soft"></a>soft</h2><p>示例：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset --soft HEAD^</span><br></pre></td></tr></table></figure>
+
+<p>这里的<code>HEAD^</code>表示回退到上一个版本，同理<code>HEAD^2</code>表示回退到上两个版本。</p>
+<p>使用soft模式，能够撤回本地仓库中的commit，但是工作区和暂存区的内容不变。</p>
+<h2 id="hard"><a href="#hard" class="headerlink" title="hard"></a>hard</h2><p>示例：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset --hard HEAD^</span><br></pre></td></tr></table></figure>
+
+<p>使用hard模式，能够使本地仓库中的commit、工作区和暂存区的内容都回退一个版本。</p>
+<h2 id="reset-–soft和revert的区别"><a href="#reset-–soft和revert的区别" class="headerlink" title="reset –soft和revert的区别"></a>reset –soft和revert的区别</h2><p>使用revert的效果是这样的：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">A-B-C-D-E</span><br></pre></td></tr></table></figure>
+
+<p>使用git revert E后，历史变为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">A-B-C-D-E-F</span><br></pre></td></tr></table></figure>
+
+
+
+<p>而使用reset –soft的效果是这样的：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">A-B-C-D-E</span><br></pre></td></tr></table></figure>
+
+<p>使用git reset –soft HEAD^后，历史变为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">A-B-C-D</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/07/17/RISC-V%E6%8C%87%E4%BB%A4%E9%9B%86%E5%85%A5%E9%97%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hao_ran">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Technichen's blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Technichen's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2024/07/17/RISC-V%E6%8C%87%E4%BB%A4%E9%9B%86%E5%85%A5%E9%97%A8/" class="post-title-link" itemprop="url">RISC-V指令集入门</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2024-07-17 02:09:07" itemprop="dateCreated datePublished" datetime="2024-07-17T02:09:07+08:00">2024-07-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-07-19 03:57:12" itemprop="dateModified" datetime="2024-07-19T03:57:12+08:00">2024-07-19</time>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>131</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="RISC-V指令集的模块化"><a href="#RISC-V指令集的模块化" class="headerlink" title="RISC-V指令集的模块化"></a>RISC-V指令集的模块化</h2><p>RISC-V指令集含有不同的模块，通过将不同模块进行组合能够使指令集具有不同的功能。</p>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">I</td>
+<td align="left">基本整数指令</td>
+</tr>
+<tr>
+<td align="left">E</td>
+<td align="left">嵌入式系统使用的基本整数指令</td>
+</tr>
+<tr>
+<td align="left">M</td>
+<td align="left">整数乘除指令</td>
+</tr>
+<tr>
+<td align="left">A</td>
+<td align="left">原子指令</td>
+</tr>
+<tr>
+<td align="left">F</td>
+<td align="left">单精度浮点数指令</td>
+</tr>
+<tr>
+<td align="left">D</td>
+<td align="left">双精度浮点数指令</td>
+</tr>
+<tr>
+<td align="left">C</td>
+<td align="left">压缩指令</td>
+</tr>
+<tr>
+<td align="left">V</td>
+<td align="left">向量指令</td>
+</tr>
+<tr>
+<td align="left">Zicsr</td>
+<td align="left">CSR指令</td>
+</tr>
+</tbody></table>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/06/06/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E4%B8%8E%E8%AE%BE%E8%AE%A1%E2%80%94%E2%80%94%E5%A4%84%E7%90%86%E5%99%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hao_ran">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Technichen's blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Technichen's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2024/06/06/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E4%B8%8E%E8%AE%BE%E8%AE%A1%E2%80%94%E2%80%94%E5%A4%84%E7%90%86%E5%99%A8/" class="post-title-link" itemprop="url">计算机组成与设计——处理器</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2024-06-06 19:07:40" itemprop="dateCreated datePublished" datetime="2024-06-06T19:07:40+08:00">2024-06-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-06-07 01:22:32" itemprop="dateModified" datetime="2024-06-07T01:22:32+08:00">2024-06-07</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E4%B8%8E%E8%AE%BE%E8%AE%A1/" itemprop="url" rel="index"><span itemprop="name">计算机组成与设计</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>605</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="RISC-V的指令集"><a href="#RISC-V的指令集" class="headerlink" title="RISC-V的指令集"></a>RISC-V的指令集</h2><p>RISC-V指令集的指令种类：</p>
+<ul>
+<li>R型（Register）</li>
+<li>I型（Immediate）</li>
+<li>S型（Store）</li>
+<li>B型（Branch）</li>
+<li>U型（Upper）</li>
+<li>J型（Jump）</li>
+</ul>
+<h3 id="R型指令"><a href="#R型指令" class="headerlink" title="R型指令"></a>R型指令</h3><p>R型指令有三个寄存器操作数。</p>
+<p>其中有两个寄存器是源寄存器，一个寄存器是目的寄存器，这就是为什么<strong>寄存器堆</strong>模型有两个Data输出和一个Data输入。</p>
+<img src="../../../blogphoto/image-20240606191622281.png" alt="image-20240606191622281" style="zoom: 80%;" />
+
+<p>对于R型指令，第一个寄存器操作数rs1始终在15<del>19位；第二个寄存器操作数rs2始终在20</del>24位；目标寄存器操作数rd始终在7~11位。</p>
+<h3 id="存取指令"><a href="#存取指令" class="headerlink" title="存取指令"></a>存取指令</h3><h3 id="B型指令"><a href="#B型指令" class="headerlink" title="B型指令"></a>B型指令</h3><p>以beq指令为例，beq指令有三个操作数，其中两个用来比较是否相等，判断是否进行跳转。还有一个操作数用来扮演以当前pc为基址的偏移量。</p>
+<blockquote>
+<p>当判断两个操作数相等，就说<strong>分支发生</strong>，反之，就说<strong>分支未发生</strong>。</p>
+</blockquote>
+<h3 id="ALU控制器"><a href="#ALU控制器" class="headerlink" title="ALU控制器"></a>ALU控制器</h3><p>ALU控制器输出的4位控制码取决于ALUOp、funct7字段、funct3字段。</p>
+<p>ALUOp根据指令操作码的类型来进行设置。</p>
+<p>当ALUOp为特定值时，funct7字段、funct3字段是多少就无所谓了，所以说ALUOp是一层编码器，funct7字段和funct3字段是一层编码器。</p>
+<blockquote>
+<p>大二的时候在上FPGA课程的时候写MIPS单周期处理器，对于这样的两层编码不知道原因，想着一层编码多方便啊。在这本书里才知道之所以要两层编码器，是为了通过减小控制单元的规模来减小控制单元的延迟。</p>
+</blockquote>
+<h2 id="学习体会"><a href="#学习体会" class="headerlink" title="学习体会"></a>学习体会</h2><ul>
+<li>在设计处理器架构的时候，控制器应该是最后进行设计的。</li>
+<li></li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/05/12/Chisel%20Bootcamp%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hao_ran">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Technichen's blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Technichen's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2024/05/12/Chisel%20Bootcamp%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">Chisel Bootcamp学习笔记</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2024-05-12 01:15:02" itemprop="dateCreated datePublished" datetime="2024-05-12T01:15:02+08:00">2024-05-12</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-05-16 22:34:10" itemprop="dateModified" datetime="2024-05-16T22:34:10+08:00">2024-05-16</time>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.8k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>7 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="1-Scala-简介"><a href="#1-Scala-简介" class="headerlink" title="1. Scala 简介"></a>1. Scala 简介</h2><h3 id="（1）变量和常量"><a href="#（1）变量和常量" class="headerlink" title="（1）变量和常量"></a>（1）变量和常量</h3><p>var：变量</p>
+<p>val：常量</p>
+<blockquote>
+<p>尽量使用var，为了：</p>
+<ol>
+<li>减少代码出错</li>
+<li>使代码易读</li>
+</ol>
+</blockquote>
+<p>Scala无需使用分号，编译器会自动判断语句的结尾。当一行中需要多条语句时，可以使用分号。</p>
+<h3 id="（2）条件语句"><a href="#（2）条件语句" class="headerlink" title="（2）条件语句"></a>（2）条件语句</h3><p>看起来语法和C语言类似，但是Scala的if语句会返回一个值，这个值是选择的分支的最后一行的值。</p>
+<h3 id="（3）方法（函数）"><a href="#（3）方法（函数）" class="headerlink" title="（3）方法（函数）"></a>（3）方法（函数）</h3><p>定义方法使用<code>def</code>关键词。在Scala中，形参的变量类型放在变量名后面，变量名和变量类型之间使用冒号进行分隔。在函数小括号的后面声明函数返回值的类型。</p>
+<p>一个函数的示例如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">def distance(x: Int, y: Int, returnPositive: Boolean): Int = &#123;</span><br><span class="line">    val xy = x * y</span><br><span class="line">    if (returnPositive) xy.abs else -xy.abs</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>可以看到Scala定义函数和Python有点像，但也很不一样。</p>
+</blockquote>
+<h3 id="（4）重载函数"><a href="#（4）重载函数" class="headerlink" title="（4）重载函数"></a>（4）重载函数</h3><p>Scala的编译器可以根据相同名字的函数的参数数量和类型来判断调用的是哪个函数。</p>
+<blockquote>
+<p>尽量不要使用重载函数。</p>
+<p>为什么？20240516</p>
+</blockquote>
+<h3 id="（5）递归函数和嵌套函数"><a href="#（5）递归函数和嵌套函数" class="headerlink" title="（5）递归函数和嵌套函数"></a>（5）递归函数和嵌套函数</h3><p>一对大括号定义了一个代码区域，Scala的语法不支持在函数所在的代码区域外调用该函数。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">def asciiTriangle(rows: Int) &#123;</span><br><span class="line">    </span><br><span class="line">    // This is cute: multiplying &quot;X&quot; makes a string with many copies of &quot;X&quot;</span><br><span class="line">    def printRow(columns: Int): Unit = println(&quot;X&quot; * columns)</span><br><span class="line">    </span><br><span class="line">    if(rows &gt; 0) &#123;</span><br><span class="line">        printRow(rows)</span><br><span class="line">        asciiTriangle(rows - 1) // Here is the recursive call</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// printRow(1) // This would not work, since we&#x27;re calling printRow outside its scope</span><br><span class="line">asciiTriangle(6)</span><br></pre></td></tr></table></figure>
+
+<p>上面注释的printRow(1)无法正常运行，因为调用在函数所在的代码区域外。</p>
+<h3 id="（6）列表"><a href="#（6）列表" class="headerlink" title="（6）列表"></a>（6）列表</h3><p>列表（Lists）能够用来表示集合和序列。列表和数组很像，但是有更多的操作函数，能够使用这些操作函数来添加和提取元素。</p>
+<h4 id="定义列表的三种方法："><a href="#定义列表的三种方法：" class="headerlink" title="定义列表的三种方法："></a>定义列表的三种方法：</h4><ol>
+<li><p>List函数生成法：<code>val list1 = List(1, 2, 3)</code></p>
+<blockquote>
+<p>这一种办法将List看做了一个对象进行生成。</p>
+</blockquote>
+</li>
+<li><p>列举定义法：<code>val list2 = x :: y :: y :: Nil</code></p>
+</li>
+<li><p>列表相加法：<code>val list3 = list1 ++ list2</code></p>
+</li>
+</ol>
+<h4 id="列表对象的方法："><a href="#列表对象的方法：" class="headerlink" title="列表对象的方法："></a>列表对象的方法：</h4><ol>
+<li>获得长度：length</li>
+<li>获得大小：size</li>
+<li>获得头元素：head</li>
+<li>获得后续元素（除了头元素的剩下的元素）：tail</li>
+</ol>
+<p>List和数组一样都是以0为第一个索引，不过在索引的时候使用小括号而不是中括号。</p>
+<h3 id="（7）for语句"><a href="#（7）for语句" class="headerlink" title="（7）for语句"></a>（7）for语句</h3><p>Scala中for语句的使用方式和其他语言很像。</p>
+<h4 id="迭代："><a href="#迭代：" class="headerlink" title="迭代："></a>迭代：</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">for (i &lt;- 0 to 7)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">for (i &lt;- 0 until 7)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>to和until的不同在于to是0到7，而until是0到6。</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">for(i &lt;- 0 to 10 by 2) &#123; print(i + &quot; &quot;) &#125;</span><br><span class="line">println()</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>by 2的意思就是每隔1个数字进行迭代。</p>
+<p>这段代码的作用是输出：0 2 4 6 8 10</p>
+</blockquote>
+<h4 id="迭代器："><a href="#迭代器：" class="headerlink" title="迭代器："></a>迭代器：</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">val randomList = List(scala.util.Random.nextInt(), scala.util.Random.nextInt(), scala.util.Random.nextInt(), scala.util.Random.nextInt())</span><br><span class="line">var listSum = 0</span><br><span class="line">for (value &lt;- randomList) &#123;</span><br><span class="line">  listSum += value</span><br><span class="line">&#125;</span><br><span class="line">println(&quot;sum is &quot; + listSum)</span><br></pre></td></tr></table></figure>
+
+<h3 id="阅读Scala"><a href="#阅读Scala" class="headerlink" title="阅读Scala"></a>阅读Scala</h3><h4 id="（1）文件包和导入"><a href="#（1）文件包和导入" class="headerlink" title="（1）文件包和导入"></a>（1）文件包和导入</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import mytools.Tool1</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>当使用上面这一行代码时，mytools是一个文件包，Tool1是一个类。</p>
+</blockquote>
+<p>Scala的包名最好小写，并且不要使用下划线。</p>
+<h4 id="（2）Scala是一个面向对象的语言"><a href="#（2）Scala是一个面向对象的语言" class="headerlink" title="（2）Scala是一个面向对象的语言"></a>（2）Scala是一个面向对象的语言</h4>
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/04/29/C%E8%AF%AD%E8%A8%80%EF%BC%9A%E5%8F%98%E9%95%BF%E5%8F%82%E6%95%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hao_ran">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Technichen's blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Technichen's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2024/04/29/C%E8%AF%AD%E8%A8%80%EF%BC%9A%E5%8F%98%E9%95%BF%E5%8F%82%E6%95%B0/" class="post-title-link" itemprop="url">C语言：变长参数</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2024-04-29 15:38:47 / 修改时间：15:51:30" itemprop="dateCreated datePublished" datetime="2024-04-29T15:38:47+08:00">2024-04-29</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/C%E8%AF%AD%E8%A8%80%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">C语言笔记</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>650</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>3 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="什么是变长参数"><a href="#什么是变长参数" class="headerlink" title="什么是变长参数"></a>什么是变长参数</h2><p>当一个函数不确定需要输入几个参数时，就需要将这个函数的形参设置为变长参数。</p>
+<p>一般来说，变长参数是用…三个点来表示的。</p>
+<p>其实在刚开始学习C语言的时候，我们就跟变长参数这个特性有接触了，最典型的就是printf函数，对于printf函数，你可以设置任意多的参数。</p>
+<h2 id="如何设置变长参数"><a href="#如何设置变长参数" class="headerlink" title="如何设置变长参数"></a>如何设置变长参数</h2><p>设置变长参数需要使用stdarg.h库</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;stdarg.h&gt;</span><br><span class="line"></span><br><span class="line">void fun(int argCount, ...);</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    fun(2, 10, 20);</span><br><span class="line">    printf(&quot;------------\n&quot;);</span><br><span class="line">    fun(5, 10, 20, 30, 40, 50);</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void fun(int argCount, ...)</span><br><span class="line">&#123;</span><br><span class="line">    va_list args;</span><br><span class="line"></span><br><span class="line">    va_start(args, argCount);</span><br><span class="line"></span><br><span class="line">    for(int i = 0; i &lt; argCount; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        int arg = va_arg(args, int);</span><br><span class="line">        printf(&quot;%d-%d\n&quot;, i, arg);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    va_end(args);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在设置变长参数时，需要使用到stdarg.h库中自带的内容，如：va_list、va_start、va_arg、va_end。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/04/23/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E2%80%94%E2%80%94%E6%A0%91%E5%92%8C%E4%BA%8C%E5%8F%89%E6%A0%91/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hao_ran">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Technichen's blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Technichen's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2024/04/23/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E2%80%94%E2%80%94%E6%A0%91%E5%92%8C%E4%BA%8C%E5%8F%89%E6%A0%91/" class="post-title-link" itemprop="url">数据结构——树和二叉树</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2024-04-23 15:31:14 / 修改时间：23:26:53" itemprop="dateCreated datePublished" datetime="2024-04-23T15:31:14+08:00">2024-04-23</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" itemprop="url" rel="index"><span itemprop="name">数据结构</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>790</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>3 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>这篇文章是数据结构课程的一个笔记，做这个笔记是为了方便自己梳理所学内容。</p>
+<h2 id="相关概念"><a href="#相关概念" class="headerlink" title="相关概念"></a>相关概念</h2><h3 id="树"><a href="#树" class="headerlink" title="树"></a>树</h3><p>是由n（n≥0）个结点组成的有限集合T。（n可以等于0！当n等于0时树为空树）</p>
+<h3 id="结点"><a href="#结点" class="headerlink" title="结点"></a>结点</h3><p>数据结构+若干指向其子树的分支。</p>
+<h3 id="结点的度"><a href="#结点的度" class="headerlink" title="结点的度"></a>结点的度</h3><p>节点拥有的子树的数量。</p>
+<h3 id="叶子结点"><a href="#叶子结点" class="headerlink" title="叶子结点"></a>叶子结点</h3><p>度为零的结点。</p>
+<h3 id="分支结点"><a href="#分支结点" class="headerlink" title="分支结点"></a>分支结点</h3><p>度大于零的结点。</p>
+<h2 id="二叉树"><a href="#二叉树" class="headerlink" title="二叉树"></a>二叉树</h2><h3 id="基本特征"><a href="#基本特征" class="headerlink" title="基本特征"></a>基本特征</h3><ul>
+<li><p>每个结点最多只有两颗子树（不存在度大于2的结点）</p>
+</li>
+<li><p>左子树和右子树的次序不能颠倒（有序树）</p>
+<blockquote>
+<p>有序树并不意味着必须要有左子树，可以在没有左子树的情况下有右子树。</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="树和二叉树的关系"><a href="#树和二叉树的关系" class="headerlink" title="树和二叉树的关系"></a>树和二叉树的关系</h3><p>这篇文章的名字是“数据结构——树和二叉树”，之所以把树和二叉树并列，是因为严格来说二叉树和树并不是从属的关系。</p>
+<img src="../../../blogphoto/image-20240423154749597.png" alt="image-20240423154749597" style="zoom:67%;" />
+
+<p>从这一页ppt就可以看出，“n叉树”和树并不是从属的关系，它们属于不同的树结构。</p>
+<h3 id="两种特殊的二叉树"><a href="#两种特殊的二叉树" class="headerlink" title="两种特殊的二叉树"></a>两种特殊的二叉树</h3><h4 id="满二叉树"><a href="#满二叉树" class="headerlink" title="满二叉树"></a>满二叉树</h4><p>每一层都满了。</p>
+<h4 id="完全二叉树"><a href="#完全二叉树" class="headerlink" title="完全二叉树"></a>完全二叉树</h4><p>只有最后一层不满，且叶子节点全部集中在左边。</p>
+<h3 id="二叉树的五个性质"><a href="#二叉树的五个性质" class="headerlink" title="二叉树的五个性质"></a>二叉树的五个性质</h3><h4 id="1-层数和结点数的关系"><a href="#1-层数和结点数的关系" class="headerlink" title="1. 层数和结点数的关系"></a>1. 层数和结点数的关系</h4><p>在二叉树的第i层最多有$2^{i-1}$个结点。</p>
+<blockquote>
+<p>这不难理解，二叉树各层最大数分别为1 2 4 8……</p>
+</blockquote>
+<h4 id="2-深度和节点数的关系"><a href="#2-深度和节点数的关系" class="headerlink" title="2. 深度和节点数的关系"></a>2. 深度和节点数的关系</h4><p>深度为k的二叉树至多含有$2^k-1$个结点。</p>
+<blockquote>
+<p>这个结论根据第1个结论可以推出。</p>
+</blockquote>
+<h4 id="3-n-2-和-n-0-结点数量之间的关系"><a href="#3-n-2-和-n-0-结点数量之间的关系" class="headerlink" title="3. $n_2$和$n_0$结点数量之间的关系"></a>3. $n_2$和$n_0$结点数量之间的关系</h4><p>对于二叉树，若含有$n_0$个子叶结点，$n_2$个度为2的结点，则必存在关系式$n_0&#x3D;n_2+1$。</p>
+<blockquote>
+<p>证明：</p>
+<p>​	设n为结点总数，有$n&#x3D;n_0+n_1+n_2$。</p>
+<p>​	总分支数&#x3D;$n-1$&#x3D;$n_1+2n_2$</p>
+<p>​	联立两式可得结论。</p>
+</blockquote>
+<h4 id="4-节点与完全二叉树深度的关系"><a href="#4-节点与完全二叉树深度的关系" class="headerlink" title="4. 节点与完全二叉树深度的关系"></a>4. 节点与完全二叉树深度的关系</h4><p>具有n个节点的完全二叉树的深度必为$\lfloor \log_2n \rfloor + 1$。</p>
+<blockquote>
+<p>这个结论可以由结论2推出。</p>
+</blockquote>
+<h4 id="5-完全二叉树中节点编号的关系"><a href="#5-完全二叉树中节点编号的关系" class="headerlink" title="5. 完全二叉树中节点编号的关系"></a>5. 完全二叉树中节点编号的关系</h4><p>完全二叉树编号为i的结点，若存在左孩子，则左孩子的编号为2i；若存在右孩子，则右孩子的编号为2i+1。</p>
+<blockquote>
+<p>这个结论可以通过找规律得出。</p>
+</blockquote>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -184,9 +957,15 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2024-04-01 22:58:43 / 修改时间：23:18:46" itemprop="dateCreated datePublished" datetime="2024-04-01T22:58:43+08:00">2024-04-01</time>
+      <time title="创建时间：2024-04-01 22:58:43" itemprop="dateCreated datePublished" datetime="2024-04-01T22:58:43+08:00">2024-04-01</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-04-29 20:03:39" itemprop="dateModified" datetime="2024-04-29T20:03:39+08:00">2024-04-29</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -205,14 +984,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>1.1k</span>
+      <span>1.4k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>4 分钟</span>
+      <span>5 分钟</span>
     </span>
 </div>
 
@@ -240,6 +1019,13 @@
 <p>代码示例：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">module mux21c(a,b,s,y);</span><br><span class="line">  input   a,b,s;</span><br><span class="line">  output reg  y;   // y在always块中被赋值，一定要声明为reg型的变量</span><br><span class="line"></span><br><span class="line">  always @ (*)</span><br><span class="line">    if(s==0)</span><br><span class="line">      y = a;</span><br><span class="line">    else</span><br><span class="line">      y = b;</span><br><span class="line">endmodule</span><br></pre></td></tr></table></figure>
 
+<h2 id="状态机"><a href="#状态机" class="headerlink" title="状态机"></a>状态机</h2><p>状态机一般指有限状态机，有限状态机分为Moore型有限状态机和Mealy型有限状态机。</p>
+<h3 id="Moore型有限状态机"><a href="#Moore型有限状态机" class="headerlink" title="Moore型有限状态机"></a>Moore型有限状态机</h3><p>输出信号只与状态机的当前状态有关，与输入信号的当前值无关。输入信号影响下一次输出。</p>
+<p>当输入信号在一个周期内的任意时刻发生变化，输出信号要在下一时钟周期发生变化。</p>
+<p>特点：Moore状态机的输出信号和输入信号隔离开了。</p>
+<h3 id="Mealy型有限状态机"><a href="#Mealy型有限状态机" class="headerlink" title="Mealy型有限状态机"></a>Mealy型有限状态机</h3><p>输出状态不仅仅与状态机的当前状态有关，与输入信号的当前值也有关。</p>
+<p>当输入信号在一个周期内的任意时刻发生变化，输出信号同时发生变化。</p>
+<p>特点：输入信号的噪声可能影响输出信号。</p>
 
       
     </div>
@@ -302,7 +1088,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2024-04-02 23:23:04" itemprop="dateModified" datetime="2024-04-02T23:23:04+08:00">2024-04-02</time>
+      <time title="修改时间：2024-05-23 14:13:02" itemprop="dateModified" datetime="2024-05-23T14:13:02+08:00">2024-05-23</time>
     </span>
 
   
@@ -312,14 +1098,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>2.1k</span>
+      <span>7.1k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>8 分钟</span>
+      <span>27 分钟</span>
     </span>
 </div>
 
@@ -408,7 +1194,7 @@
 
 
 
-<h2 id="面向过程编写Python节点"><a href="#面向过程编写Python节点" class="headerlink" title="面向过程编写Python节点"></a>面向过程编写Python节点</h2><h3 id="步骤一：创建功能包"><a href="#步骤一：创建功能包" class="headerlink" title="步骤一：创建功能包"></a>步骤一：创建功能包</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ros2 pkg create village_li --build-type ament_python --denpencies rclpy</span><br></pre></td></tr></table></figure>
+<h2 id="面向过程编写Python节点"><a href="#面向过程编写Python节点" class="headerlink" title="面向过程编写Python节点"></a>面向过程编写Python节点</h2><h3 id="步骤一：创建功能包"><a href="#步骤一：创建功能包" class="headerlink" title="步骤一：创建功能包"></a>步骤一：创建功能包</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ros2 pkg create village_li --build-type ament_python --dependencies rclpy</span><br></pre></td></tr></table></figure>
 
 <ul>
 <li>–build-type ament_python表示编译类型为ament_python，默认情况下使用ament_cmake进行编译。</li>
@@ -426,7 +1212,128 @@
 <p>使用colcon编译ros2工程后，source install&#x2F;setup.bash的作用是什么？</p>
 <p>主要是设置环境变量，使得系统能够运行最新构建的功能包。</p>
 </blockquote>
-<p>学到P22</p>
+<h2 id="面向过程编写Python节点-1"><a href="#面向过程编写Python节点-1" class="headerlink" title="面向过程编写Python节点"></a>面向过程编写Python节点</h2><blockquote>
+<p>常见的三种编程思想</p>
+<ol>
+<li>面向过程编程思想。缩写：POP</li>
+<li>面向对象编程思想。缩写：OOP</li>
+<li>函数式思想。缩写：FP</li>
+</ol>
+</blockquote>
+<h2 id="面向过程编写C-节点"><a href="#面向过程编写C-节点" class="headerlink" title="面向过程编写C++节点"></a>面向过程编写C++节点</h2><h3 id="步骤一：创建功能包-1"><a href="#步骤一：创建功能包-1" class="headerlink" title="步骤一：创建功能包"></a>步骤一：创建功能包</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ros2 pkg create village_wang --build-type ament_cmake --dependencies rclcpp</span><br></pre></td></tr></table></figure>
+
+<p>或者</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ros2 pkg create village_wang --dependencies rclcpp</span><br></pre></td></tr></table></figure>
+
+<h3 id="步骤二：编写C-代码"><a href="#步骤二：编写C-代码" class="headerlink" title="步骤二：编写C++代码"></a>步骤二：编写C++代码</h3><p>在src&#x2F;village_wang&#x2F;src目录下创建.cpp文件，编写代码。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">#include &quot;rclcpp/rclcpp.hpp&quot;</span><br><span class="line"></span><br><span class="line">int main(int argc, char **argv)</span><br><span class="line">&#123;</span><br><span class="line">    rclcpp::init(argc, argv);</span><br><span class="line">    auto node = std::make_shared&lt;rclcpp::Node&gt;(&quot;wang2&quot;);</span><br><span class="line">    RCLCPP_INFO(node-&gt;get_logger(), &quot;大家好，我是单身狗wang2&quot;);</span><br><span class="line">    rclcpp::spin(node);</span><br><span class="line">    rclcpp::shutdown();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="步骤三：在CMakeLists-txt文件中指定节点路径"><a href="#步骤三：在CMakeLists-txt文件中指定节点路径" class="headerlink" title="步骤三：在CMakeLists.txt文件中指定节点路径"></a>步骤三：在CMakeLists.txt文件中指定节点路径</h3><p>在CMakeLists的最后添加如下代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">add_executable(wang2_node src/wang2.cpp)</span><br><span class="line">ament_target_dependencies(wang2_node rclcpp)</span><br><span class="line"></span><br><span class="line">install(TARGETS</span><br><span class="line">  wang2_node</span><br><span class="line">  DESTINATION lib/$&#123;PROJECT_NAME&#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<h3 id="步骤四：编译-1"><a href="#步骤四：编译-1" class="headerlink" title="步骤四：编译"></a>步骤四：编译</h3><p>在终端中，在工作空间目录下（注意是工作空间目录下而不是src目录下）输入<code>colcon build --packages-select village_wang</code>命令，进行编译。</p>
+<blockquote>
+<p>默认输入的colcon build会编译workspace中的所有功能包，–packages-select能够选择只编译哪些功能包。</p>
+</blockquote>
+<h3 id="步骤五：source-1"><a href="#步骤五：source-1" class="headerlink" title="步骤五：source"></a>步骤五：source</h3><p>在终端中输入<code>source install/setup.bash</code>命令。</p>
+<blockquote>
+<p>使用colcon编译ros2工程后，source install&#x2F;setup.bash的作用是什么？</p>
+<p>主要是设置环境变量，使得系统能够运行最新构建的功能包。</p>
+<p>source之后可以通过<code>ros2 pkg list | grep vill</code>来看到自己构建的功能包。</p>
+</blockquote>
+<h2 id="面向对象编写C-节点"><a href="#面向对象编写C-节点" class="headerlink" title="面向对象编写C++节点"></a>面向对象编写C++节点</h2><p>将上面的代码改成：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">#include &quot;rclcpp/rclcpp.hpp&quot;</span><br><span class="line"></span><br><span class="line">class SingleDogNode: public rclcpp::Node</span><br><span class="line">&#123;</span><br><span class="line">private:</span><br><span class="line">    /* data */</span><br><span class="line">public:</span><br><span class="line">    SingleDogNode(std::string name):Node(name)</span><br><span class="line">    &#123;</span><br><span class="line">        RCLCPP_INFO(this-&gt;get_logger(), &quot;大家好，我是单身狗%s.&quot;, name.c_str());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">int main(int argc, char **argv)</span><br><span class="line">&#123;</span><br><span class="line">    rclcpp::init(argc, argv);</span><br><span class="line">    auto node = std::make_shared&lt;SingleDogNode&gt;(&quot;wang5&quot;);</span><br><span class="line">    rclcpp::spin(node);</span><br><span class="line">    rclcpp::shutdown();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>即可。</p>
+<hr>
+<h2 id="话题与服务"><a href="#话题与服务" class="headerlink" title="话题与服务"></a>话题与服务</h2><p>ROS2有4种通信机制，分别是：话题、服务、参数、Action，后两者基于前面两者，所以学习话题与服务至关重要。</p>
+<h3 id="相关工具"><a href="#相关工具" class="headerlink" title="相关工具"></a>相关工具</h3><h4 id="RQT工具——rqt-graph"><a href="#RQT工具——rqt-graph" class="headerlink" title="RQT工具——rqt_graph"></a>RQT工具——rqt_graph</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ros2 run demo_nodes_py listener</span><br><span class="line">ros2 run demo_nodes_cpp talker</span><br><span class="line">rqt_graph</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://s2.loli.net/2024/05/01/qUFsHbrK1TXtxWI.png" alt="image-20240501104416468"></p>
+<h3 id="查看话题信息"><a href="#查看话题信息" class="headerlink" title="查看话题信息"></a>查看话题信息</h3><h4 id="查看话题列表（简略）"><a href="#查看话题列表（简略）" class="headerlink" title="查看话题列表（简略）"></a>查看话题列表（简略）</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ros2 topic list</span><br></pre></td></tr></table></figure>
+
+<h4 id="查看话题列表（详细）"><a href="#查看话题列表（详细）" class="headerlink" title="查看话题列表（详细）"></a>查看话题列表（详细）</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ros2 topic list -t</span><br></pre></td></tr></table></figure>
+
+<h4 id="查看话题内容"><a href="#查看话题内容" class="headerlink" title="查看话题内容"></a>查看话题内容</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ros2 topic echo &lt;/话题名称&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="查看话题信息-1"><a href="#查看话题信息-1" class="headerlink" title="查看话题信息"></a>查看话题信息</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ros2 topic info &lt;/话题名称&gt;</span><br></pre></td></tr></table></figure>
+
+<p>通过这个命令可以看到这个话题的类型，话题的发布者人数，话题的订阅者人数。</p>
+<h4 id="查看消息类型"><a href="#查看消息类型" class="headerlink" title="查看消息类型"></a>查看消息类型</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ros2 interface show &lt;消息类型&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="手动发布命令"><a href="#手动发布命令" class="headerlink" title="手动发布命令"></a>手动发布命令</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ros2 topic pub &lt;/话题名称&gt; &lt;消息类型&gt; &lt;话题内容&gt;</span><br></pre></td></tr></table></figure>
+
+<p>如</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ros2 topic pub /chatter std_msgs/msg/String &quot;&#123;data: &#x27;你好啊&#x27;&#125;&quot;</span><br></pre></td></tr></table></figure>
+
+<h3 id="创建发布者（使用python）"><a href="#创建发布者（使用python）" class="headerlink" title="创建发布者（使用python）"></a>创建发布者（使用python）</h3><p>创建发布者一般有3个流程：</p>
+<ol>
+<li>导入消息类型</li>
+<li>声明并创建发布者</li>
+<li>编写发布逻辑发布数据</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">import rclpy</span><br><span class="line">from rclpy.node import Node</span><br><span class="line"># 1.</span><br><span class="line">from std_msgs.msg import String</span><br><span class="line"></span><br><span class="line">class WriterNode(Node):</span><br><span class="line">    def __init__(self,name):</span><br><span class="line">        super().__init__(name)</span><br><span class="line">        self.get_logger().info(&quot;大家好，我是作家%s.&quot; % name)</span><br><span class="line">        # 2.</span><br><span class="line">        self.pub_novel = self.create_publisher(String, &quot;my_story&quot;, 10)</span><br><span class="line">        </span><br><span class="line">        self.count = 0</span><br><span class="line">        self.timer_period = 5</span><br><span class="line">        self.timer = self.create_timer(self.timer_period, self.timer_callback)</span><br><span class="line"></span><br><span class="line">    def timer_callback(self):</span><br><span class="line">        msg = String()</span><br><span class="line">        msg.data = &quot;第%d回 第%d次&quot; % (self.count, self.count)</span><br><span class="line">        self.pub_novel.publish(msg) # publish</span><br><span class="line">        self.get_logger().info(&quot;发布了，内容是%s&quot; % msg.data)</span><br><span class="line">        self.count += 1</span><br><span class="line"></span><br><span class="line">def main(args=None):</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    入口函数</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    rclpy.init(args=args)</span><br><span class="line">    li5_node = WriterNode(&quot;li5&quot;)</span><br><span class="line">    rclpy.spin(li5_node)</span><br><span class="line">    rclpy.shutdown()</span><br></pre></td></tr></table></figure>
+
+<h3 id="创建订阅者（使用python）"><a href="#创建订阅者（使用python）" class="headerlink" title="创建订阅者（使用python）"></a>创建订阅者（使用python）</h3><p>创建订阅者的步骤一般有4步：</p>
+<ol>
+<li>导入订阅的话题接口类型</li>
+<li>创建订阅回调函数</li>
+<li>声明并创建订阅者</li>
+<li>编写订阅回调处理逻辑</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">import rclpy</span><br><span class="line">from rclpy.node import Node</span><br><span class="line"># 1.</span><br><span class="line">from std_msgs.msg import String, UInt32</span><br><span class="line"></span><br><span class="line">class WriterNode(Node):</span><br><span class="line">    def __init__(self,name):</span><br><span class="line">        super().__init__(name)</span><br><span class="line">        self.get_logger().info(&quot;大家好，我是作家%s.&quot; % name)</span><br><span class="line">        # 2.</span><br><span class="line">        self.pub_novel = self.create_publisher(String, &quot;my_story&quot;, 10)</span><br><span class="line">        </span><br><span class="line">        self.count = 0</span><br><span class="line">        self.timer_period = 5</span><br><span class="line">        self.timer = self.create_timer(self.timer_period, self.timer_callback)</span><br><span class="line">        </span><br><span class="line">        self.account = 80</span><br><span class="line">        self.sub_money = self.create_subscription(UInt32, &quot;my_story_money&quot;, self.recv_money_callback, 10)</span><br><span class="line"></span><br><span class="line">    def timer_callback(self):</span><br><span class="line">        msg = String()</span><br><span class="line">        msg.data = &quot;第%d回 第%d次&quot; % (self.count, self.count)</span><br><span class="line">        self.pub_novel.publish(msg) # publish</span><br><span class="line">        self.get_logger().info(&quot;发布了，内容是%s&quot; % msg.data)</span><br><span class="line">        self.count += 1</span><br><span class="line"></span><br><span class="line">    def recv_money_callback(self,money):</span><br><span class="line">        self.account += money.data</span><br><span class="line">        self.get_logger().info(&quot;收到%d的稿费，现在账户里有%d的钱&quot; % (money.data, self.account))</span><br><span class="line"></span><br><span class="line">def main(args=None):</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    入口函数</span><br><span class="line">    &quot;&quot;&quot;</span><br><span class="line">    rclpy.init(args=args)</span><br><span class="line">    li5_node = WriterNode(&quot;li5&quot;)</span><br><span class="line">    rclpy.spin(li5_node)</span><br><span class="line">    rclpy.shutdown()</span><br></pre></td></tr></table></figure>
+
+
+
+<p>暂时跳过P34、P35</p>
+<h3 id="ROS2的接口"><a href="#ROS2的接口" class="headerlink" title="ROS2的接口"></a>ROS2的接口</h3><p>使用接口能够使不同语言，不用厂商的设备在传递数据时使用统一的规范，以方便开发。</p>
+<h4 id="查看接口"><a href="#查看接口" class="headerlink" title="查看接口"></a>查看接口</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ros2 interface package &lt;接口包名&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="查看接口列表"><a href="#查看接口列表" class="headerlink" title="查看接口列表"></a>查看接口列表</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ros2 interface list</span><br></pre></td></tr></table></figure>
+
+<h4 id="查看所有接口包"><a href="#查看所有接口包" class="headerlink" title="查看所有接口包"></a>查看所有接口包</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ros2 interface packages</span><br></pre></td></tr></table></figure>
+
+<h4 id="查看接口详细内容（即上面的查看消息类型）"><a href="#查看接口详细内容（即上面的查看消息类型）" class="headerlink" title="查看接口详细内容（即上面的查看消息类型）"></a>查看接口详细内容（即上面的查看消息类型）</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ros2 interface show &lt;消息类型&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="查看某一接口的所有属性"><a href="#查看某一接口的所有属性" class="headerlink" title="查看某一接口的所有属性"></a>查看某一接口的所有属性</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ros2 interface proto &lt;消息类型&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="如何自定义话题接口"><a href="#如何自定义话题接口" class="headerlink" title="如何自定义话题接口"></a>如何自定义话题接口</h4><p>一般在工程中，为了方便管理自定义话题接口，我们把自定义话题接口都放在一个专门存放自定义话题接口的功能包中。</p>
+<ol>
+<li>新建功能包。</li>
+<li>新建msg文件夹，并在文件夹下新建<code>xxx.msg</code>（大写字母开头）</li>
+<li>在<code>xxx.msg</code>下编写消息内容并保存</li>
+<li>在CmakeLists.txt中添加依赖和msg文件目录</li>
+<li></li>
+</ol>
+<p>跳过P38-P69</p>
+<h2 id="launch文件介绍"><a href="#launch文件介绍" class="headerlink" title="launch文件介绍"></a>launch文件介绍</h2><h3 id="为什么需要launch文件"><a href="#为什么需要launch文件" class="headerlink" title="为什么需要launch文件"></a>为什么需要launch文件</h3><p>因为需要启动的结点太多了，如果一行一行输入代码太慢了。</p>
+<h3 id="编写launch文件的格式"><a href="#编写launch文件的格式" class="headerlink" title="编写launch文件的格式"></a>编写launch文件的格式</h3><p>ROS2编写launch文件有三种格式：</p>
+<ul>
+<li>python</li>
+<li>xml</li>
+<li>yaml</li>
+</ul>
+<p>ROS2官方推荐python，因为python更灵活。</p>
+<h3 id="编写launch文件的步骤"><a href="#编写launch文件的步骤" class="headerlink" title="编写launch文件的步骤"></a>编写launch文件的步骤</h3><p>在功能包下创建一个launch文件夹，在文件夹下创建一个.launch.py文件。</p>
+<p>编写代码：</p>
+<ol>
+<li>导入库</li>
+<li>定义函数</li>
+<li>创建节点描述</li>
+<li>生成launch_description</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"># 1.</span><br><span class="line">from launch import LaunchDescription</span><br><span class="line">from launch_ros.actions import Node</span><br><span class="line"></span><br><span class="line"># 2.</span><br><span class="line">def generate_launch_description():</span><br><span class="line">    # 3.</span><br><span class="line">    li4_node = Node(</span><br><span class="line">        package=&quot;village_li&quot;</span><br><span class="line">        executable=&quot;li4_node&quot;</span><br><span class="line">        )</span><br><span class="line">    </span><br><span class="line">    wang2_node = Node(</span><br><span class="line">        package=&quot;village_wang&quot;</span><br><span class="line">        executable=&quot;wang2_node&quot;</span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">    # 4.</span><br><span class="line">    launch_d = LaunchDescription([li4_node, wang2_node])</span><br><span class="line">    return launch_d</span><br></pre></td></tr></table></figure>
+
+<p>将下面三行代码复制到功能包的setup.py：</p>
+<p>这两行复制到文件最上面：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">from glob import glob</span><br><span class="line">import os</span><br></pre></td></tr></table></figure>
+
+<p>这一行复制到data_files中：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(os.path.join(&#x27;share&#x27;, package_name, &#x27;launch&#x27;), glob(&#x27;launch/*.launch.py&#x27;)),</span><br></pre></td></tr></table></figure>
+
+
+
+<p>学到P74</p>
 
       
     </div>
@@ -623,712 +1530,6 @@
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/03/27/PCB%E9%98%BB%E6%8A%97%E5%8C%B9%E9%85%8D%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="hao_ran">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Technichen's blog">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Technichen's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2024/03/27/PCB%E9%98%BB%E6%8A%97%E5%8C%B9%E9%85%8D%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">PCB阻抗匹配学习笔记</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2024-03-27 16:27:57 / 修改时间：23:14:18" itemprop="dateCreated datePublished" datetime="2024-03-27T16:27:57+08:00">2024-03-27</time>
-    </span>
-
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>1.3k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>5 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="为什么高速pcb要阻抗匹配"><a href="#为什么高速pcb要阻抗匹配" class="headerlink" title="为什么高速pcb要阻抗匹配"></a>为什么高速pcb要阻抗匹配</h2><p>高速PCB需要阻抗匹配，使信号不会反射，能够通畅到达目的地。</p>
-<p>为什么高速PCB需要阻抗匹配，而低速PCB不需要阻抗匹配？因为低速PCB的信号频率低，波长长，阻抗不匹配造成的反射对信号影响小，而高速PCB信号频率高，波长短，阻抗不匹配造成的反射对信号影响很大，反射会造成信号严重失真。</p>
-<p>或者也可以换一个理解的角度，之所以有特性阻抗，是因为传输线有寄生电阻、寄生电容、寄生电感，而我们知道电容和电感在交流电中起作用，且交流频率越高，作用越明显，所以对于高速pcb，特性阻抗对电路信号传输的影响就会变大，所以一般在高速pcb中要考虑阻抗匹配。</p>
-<h2 id="特性阻抗和电路原理学习的阻抗不一样"><a href="#特性阻抗和电路原理学习的阻抗不一样" class="headerlink" title="特性阻抗和电路原理学习的阻抗不一样"></a>特性阻抗和电路原理学习的阻抗不一样</h2><p>电路原理学习的阻抗是将电路看做二端口网络得到网络的阻抗。</p>
-<p>特性阻抗是传输线由于存在寄生电阻、寄生电容、寄生电感而存在的阻抗，可以理解为这个传输线各点的特性，这意味着当我们说这个传输线的特性阻抗是多少欧姆的时候，我们不需要考虑传输线的长短（即，特性阻抗与传输线长短无关）。就像是一个铜导线的材质是铜，它的硬度等物理特性由铜这个材质、加工工艺等内容决定，但是与导线的长度无关。</p>
-<p>由于特性阻抗和阻抗都是描述电路特性的物理量，都与电压、电流的比值有关，并且单位都是欧姆，两者之前存在许多相似性，所以容易使人搞混，但是我们应该知道<strong>特性阻抗和电路原理学习的阻抗不一样</strong>。</p>
-<h2 id="阻抗匹配联系高中物理"><a href="#阻抗匹配联系高中物理" class="headerlink" title="阻抗匹配联系高中物理"></a>阻抗匹配联系高中物理</h2><p>阻抗匹配就是让信号源、传输线、负载的阻抗相同，以达到信号顺利传递的目标。</p>
-<p>我想起了在高中物理当中，有一类题目是给定一个存在内阻的电压源，如何使负载功率最大。可以通过不等式或者求导得到当负载电阻与电压源内阻相等时，负载功率最大。</p>
-<p>负载功率最大不就可以看做是信号（能量）顺利传递嘛。</p>
-<p>从这个视角来说在高中我们就接触过了电阻匹配这个概念。</p>
-<h2 id="“特性阻抗”和“差分线”这两个概念之间没有必然联系"><a href="#“特性阻抗”和“差分线”这两个概念之间没有必然联系" class="headerlink" title="“特性阻抗”和“差分线”这两个概念之间没有必然联系"></a>“特性阻抗”和“差分线”这两个概念之间没有必然联系</h2><p>在学习高速pcb设计时，“特性阻抗”和“差分线”这两个概念往往同时出现，使人以为这两者是绑定在一起的，实际上不是这样的。</p>
-<p>特性阻抗是一种性质，可以说任何传输线都有特性阻抗这个性质。</p>
-<p>差分线指的是两根传输差模信号（又称差分信号）的线。在高速pcb中，差分线往往是一定会出现的。但是这不意味着差分线只在高速pcb中出现，在许多对传输信号抗噪声要求较高的地方都有差分线的存在，最令人熟知的就是RS485标准。</p>
-<p>通过上面的表述，就不难知道为什么高速pcb中总是把“特性阻抗”和“差分线”放在一起说了，都是为了信号能够以高质量传输。</p>
-<h2 id="PCB阻抗如何设置"><a href="#PCB阻抗如何设置" class="headerlink" title="PCB阻抗如何设置"></a>PCB阻抗如何设置</h2><p>在高速PCB中，一个信号往往使用两条线进行传输，这两条线称为阻抗对、差分对、差分阻抗对。</p>
-<p>像HDMI、USB这些设备都有规定的阻抗，需要在设计PCB的时候对走线进行设置，如设置差分对的线宽和间距，以满足阻抗匹配的要求。</p>
-<p>使用阻抗计算工具，我们可以通过输入pcb层数、厚度、铜厚、阻抗要求等内容来计算出需要设计怎么样的线路（如果是单端走线，就会告诉你要设计怎么样的线宽；如果是差分走线，就会告诉你要设计怎么样的线宽和线距）。</p>
-<p>阻抗匹配不仅可以通过走线来实现，也可以通过放置元器件来实现。</p>
-<h2 id="差分线等长与阻抗的关系"><a href="#差分线等长与阻抗的关系" class="headerlink" title="差分线等长与阻抗的关系"></a>差分线等长与阻抗的关系</h2><p>差分线等长与阻抗无关，之所以要等长是为了使两个差分线的差分信号相位相同，方便两个差分信号做减法。</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/03/23/GDB%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="hao_ran">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Technichen's blog">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Technichen's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2024/03/23/GDB%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">GDB入门笔记</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2024-03-23 12:12:42 / 修改时间：23:50:55" itemprop="dateCreated datePublished" datetime="2024-03-23T12:12:42+08:00">2024-03-23</time>
-    </span>
-
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>1.4k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>5 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="GDB是什么"><a href="#GDB是什么" class="headerlink" title="GDB是什么"></a>GDB是什么</h2><p>GDB（GNU symbolic debugger）是一个调试C&#x2F;C++程序的工具，能够在终端中使用。</p>
-<h2 id="GDB调试方法"><a href="#GDB调试方法" class="headerlink" title="GDB调试方法"></a>GDB调试方法</h2><p>在使用GDB之前，需要编译程序并带上调试信息，通常在编译时添加 <code>-g</code> 选项。例如，如果使用的是gcc，可以这样编译程序：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc -g your_program.c -o your_program</span><br></pre></td></tr></table></figure>
-
-<p>编译之后即可输入</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gdb your_program</span><br></pre></td></tr></table></figure>
-
-<p>来启动GDB进行调试。</p>
-<h2 id="GDB指令"><a href="#GDB指令" class="headerlink" title="GDB指令"></a>GDB指令</h2><p>在IDE的时候，调试一个程序常用的操作有：单步执行（进入函数）、单步执行（不进入函数）、设置断点、查看变量值、查看寄存器值、查看调用栈、设置监视点等操作。</p>
-<h3 id="单步执行（进入函数）"><a href="#单步执行（进入函数）" class="headerlink" title="单步执行（进入函数）"></a>单步执行（进入函数）</h3><p>使用 <code>step</code> 命令（或简写为 <code>s</code>）来单步执行程序，包括进入函数内部。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(gdb) step</span><br></pre></td></tr></table></figure>
-
-<h3 id="单步执行（不进入函数）"><a href="#单步执行（不进入函数）" class="headerlink" title="单步执行（不进入函数）"></a>单步执行（不进入函数）</h3><p>使用 <code>next</code> 命令（或简写为 <code>n</code>）来单步执行程序，但不进入函数内部（跳过函数）。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(gdb) next</span><br></pre></td></tr></table></figure>
-
-<h3 id="设置断点"><a href="#设置断点" class="headerlink" title="设置断点"></a>设置断点</h3><p>使用 <code>break</code> 命令（或简写为 <code>b</code>）在指定位置设置断点，可以是行号、函数名或地址。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(gdb) break line_number</span><br><span class="line">(gdb) break function_name</span><br><span class="line">(gdb) break *address</span><br></pre></td></tr></table></figure>
-
-<h3 id="启动程序"><a href="#启动程序" class="headerlink" title="启动程序"></a>启动程序</h3><h4 id="通过run启动程序"><a href="#通过run启动程序" class="headerlink" title="通过run启动程序"></a>通过run启动程序</h4><p>通过<code>run</code>命令（或简写为 <code>r</code>）来启动程序从头开始执行，直至遇到断点、异常、程序结束，或者用户手动中断。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(gdb) run</span><br></pre></td></tr></table></figure>
-
-<h4 id="通过start启动程序"><a href="#通过start启动程序" class="headerlink" title="通过start启动程序"></a>通过start启动程序</h4><p>对于C或C++程序，可以直接使用<code>start</code>启动程序，它会在main函数的第一条语句处自动设置一个临时断点，并开始执行。这对于快速开始调试主程序入口非常方便。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(gdb) start</span><br></pre></td></tr></table></figure>
-
-<h3 id="继续执行程序"><a href="#继续执行程序" class="headerlink" title="继续执行程序"></a>继续执行程序</h3><p>如果程序在断点处暂停，使用 <code>continue</code> 或 <code>c</code> 命令继续执行，直到遇到下一个断点、异常或程序结束。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(gdb) <span class="built_in">continue</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="查看变量或寄存器值"><a href="#查看变量或寄存器值" class="headerlink" title="查看变量或寄存器值"></a>查看变量或寄存器值</h3><p>使用 <code>print</code> 命令（或简写为 <code>p</code>）来打印变量或寄存器的值。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(gdb) print variable_name</span><br><span class="line">(gdb) print $register_name</span><br></pre></td></tr></table></figure>
-
-<h3 id="查看调用栈"><a href="#查看调用栈" class="headerlink" title="查看调用栈"></a>查看调用栈</h3><p>使用 <code>bt</code>（或 <code>backtrace</code>）命令来查看当前的调用栈。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(gdb) bt</span><br></pre></td></tr></table></figure>
-
-<h3 id="设置监视点"><a href="#设置监视点" class="headerlink" title="设置监视点"></a>设置监视点</h3><p>使用 <code>watch</code> 命令来设置一个监视点，当变量的值改变时程序会暂停。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(gdb) watch variable_name</span><br></pre></td></tr></table></figure>
-
-<h3 id="设置读取监视点"><a href="#设置读取监视点" class="headerlink" title="设置读取监视点"></a>设置读取监视点</h3><p>如果想要确保每次变量 <code>a</code> 被访问（无论值是否改变）时程序都会暂停，应该使用 <code>rwatch</code> 命令来设置一个读取监视点（read watchpoint）。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(gdb) rwatch a</span><br></pre></td></tr></table></figure>
-
-<h3 id="运行到函数末尾"><a href="#运行到函数末尾" class="headerlink" title="运行到函数末尾"></a>运行到函数末尾</h3><p>使用 <code>finish</code> 命令来运行程序，直到当前函数执行完毕并返回。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(gdb) finish</span><br></pre></td></tr></table></figure>
-
-<h3 id="info"><a href="#info" class="headerlink" title="info"></a>info</h3><p>输入<code>info</code>能够根据提示获得更多调试所需的信息。</p>
-<h2 id="GDB的TUI"><a href="#GDB的TUI" class="headerlink" title="GDB的TUI"></a>GDB的TUI</h2><p>TUI（Text User Interface，文本用户界面）用来在帮助调试者在调试的时候能够显示更多的信息（源代码、对应的汇编、等等）。</p>
-<p>下面两张图片是GDB普通模式和TUI模式的对比：</p>
-<img src="https://s2.loli.net/2024/03/23/sW2VPU1yr4YJLt6.png" alt="image-20240323165241867" style="zoom: 80%;" />
-
-<img src="https://s2.loli.net/2024/03/23/PqrNFybQXRD6k2U.png" alt="image-20240323165401305" style="zoom:80%;" />
-
-<p>可以看到，使用TUI进行调试能够看到更多信息。</p>
-<h3 id="启动TUI的方式"><a href="#启动TUI的方式" class="headerlink" title="启动TUI的方式"></a>启动TUI的方式</h3><ol>
-<li><p>启动GDB后输入<code>tui enable</code>（相应地，输入<code>tui disable</code>能够从TUI界面退回GDB的普通命令行界面）</p>
-</li>
-<li><p>按下快捷键<code>Ctrl + X + A</code>启动&#x2F;退出TUI模式</p>
-</li>
-<li><p>启动GDB后输入<code>layout src</code></p>
-<blockquote>
-<p>一个有趣的事情是，在GDB中输入<code>layout</code>后能够发现除了<code>src</code>这个选项，还有其他选项，选择不同选项对应展示不同的内容。</p>
-<p><img src="https://s2.loli.net/2024/03/23/6R8quKv3YPjT1hr.png" alt="image-20240323170610088"></p>
-</blockquote>
-</li>
-</ol>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/03/21/TVS%E7%9E%AC%E6%80%81%E7%94%B5%E5%8E%8B%E6%8A%91%E5%88%B6%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="hao_ran">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Technichen's blog">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Technichen's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2024/03/21/TVS%E7%9E%AC%E6%80%81%E7%94%B5%E5%8E%8B%E6%8A%91%E5%88%B6%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">TVS瞬态电压抑制器学习笔记</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2024-03-21 22:57:00" itemprop="dateCreated datePublished" datetime="2024-03-21T22:57:00+08:00">2024-03-21</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2024-03-28 21:20:28" itemprop="dateModified" datetime="2024-03-28T21:20:28+08:00">2024-03-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E7%94%B5%E5%AD%90%E6%8A%80%E6%9C%AF/" itemprop="url" rel="index"><span itemprop="name">电子技术</span></a>
-        </span>
-    </span>
-
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>1.4k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>5 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="什么是TVS"><a href="#什么是TVS" class="headerlink" title="什么是TVS"></a>什么是TVS</h2><p>TVS（Transient Voltage Suppressor，瞬态电压抑制器）是一种特殊的二极管，分双极型和单极型两种，双极型的TVS管具有双向稳压的功能。</p>
-<p>当被保护电路瞬间出现浪涌脉冲电压时，双向击穿二极管能迅速齐纳击穿，由高阻状态变为低阻状态，对浪涌电压进行分流和箝位，从而保护电路中各元件不被瞬间浪涌脉冲电压损坏。（摘自百度百科）</p>
-<h2 id="TVS的实现原理"><a href="#TVS的实现原理" class="headerlink" title="TVS的实现原理"></a>TVS的实现原理</h2><p>齐纳二极管（即稳压二极管）具有单向稳压功能，TVS的实现原理是将两个齐纳二极管的阳极串联起来，从而达到双向的稳压功能。</p>
-<h2 id="TVS管和稳压二极管的不同之处"><a href="#TVS管和稳压二极管的不同之处" class="headerlink" title="TVS管和稳压二极管的不同之处"></a>TVS管和稳压二极管的不同之处</h2><p>稳压二极管一般不会讲响应时间，更多的是关注稳压值，但是对于TVS二极管不一样，它的特性决定着它拥有不同的作用，TVS二极管具有瞬态抑制高能量作用，因此要求在较短时间内把较高能量瞬间吸收，因此这个时间很短，达到纳秒级别。</p>
-<p>从功率来看，稳压二极管的功率比TVS管的功率要低。TVS管的瞬时功率很高。</p>
-<h2 id="关键参数"><a href="#关键参数" class="headerlink" title="关键参数"></a>关键参数</h2><h3 id="1、截止电压VRWM（Stand-off-Voltage）"><a href="#1、截止电压VRWM（Stand-off-Voltage）" class="headerlink" title="1、截止电压VRWM（Stand-off Voltage）"></a>1、截止电压VRWM（Stand-off Voltage）</h3><p>截止电压指的是不引起TVS管工作的最高工作电压。在VRWM下，TVS是不工作的，即不导通。换一句话，被保护电路的最高工作电压必须小于VRWM，否则将会导致TVS工作导致电路异常。</p>
-<h3 id="2、击穿电压VBR（Breakdown-Voltage）"><a href="#2、击穿电压VBR（Breakdown-Voltage）" class="headerlink" title="2、击穿电压VBR（Breakdown Voltage）"></a>2、击穿电压VBR（Breakdown Voltage）</h3><p>击穿电压，指的是在接近发生雪崩的电流条件下测得的TVS两端的电压。</p>
-<h3 id="3、钳位电压VC（Clamping-Voltage）"><a href="#3、钳位电压VC（Clamping-Voltage）" class="headerlink" title="3、钳位电压VC（Clamping Voltage）"></a>3、钳位电压VC（Clamping Voltage）</h3><p>钳位电压，指的是施加规定波形的峰值脉冲电流IPP时，TVS两端测得的峰值电压。钳位电压VC应该小于被保护电路的损坏电压。</p>
-<h3 id="4、峰值脉冲电流IPP（Peak-Pulse-Current）"><a href="#4、峰值脉冲电流IPP（Peak-Pulse-Current）" class="headerlink" title="4、峰值脉冲电流IPP（Peak Pulse Current）"></a>4、峰值脉冲电流IPP（Peak Pulse Current）</h3><p>峰值脉冲电流是衡量TVS在电路保护中抵抗浪涌脉冲电流及限制电压能力的参数。对于相同型号TVS，在相同IPP下的VC越小，说明TVS的钳位特性越好。同型号的TVS，IPP 越大，耐脉冲电流冲击能力越强。</p>
-<h3 id="5、峰值脉冲功率PPPM（Maximum-peak-pulse-power）"><a href="#5、峰值脉冲功率PPPM（Maximum-peak-pulse-power）" class="headerlink" title="5、峰值脉冲功率PPPM（Maximum peak pulse power）"></a>5、峰值脉冲功率PPPM（Maximum peak pulse power）</h3><p>峰值脉冲功率用来衡量TVS能够承受的最大功率，PPPM&#x3D;VCxIPP，PPPM需要大于电路中可能出现的浪涌能量功率。</p>
-<h2 id="选型规范"><a href="#选型规范" class="headerlink" title="选型规范"></a>选型规范</h2><ol>
-<li>VRWM，明确TVS的最大反向工作电压，需要保证被保护信号的工作电压略小于VRWM，VRWM&#x3D;信号工作电压x(1.1~1.2倍系数)。</li>
-<li>VC，VC帮助我们判断TVS管的钳位电压是否能和后级电路适配。需要保证VC不超过后级电路的最高承受电压，VC&lt;Vmax(后级电路的最高承受电压)。</li>
-<li>IPP，IPP用于判断TVS对瞬时脉冲能量的耐受程度，越大越好。</li>
-</ol>
-<h2 id="工程实践"><a href="#工程实践" class="headerlink" title="工程实践"></a>工程实践</h2><p>我使用过的TVS有SMF12CA，是我在绘制USB与CH340模块的时候使用的，CH340可以使用上位机的USB线进行供电，为了防止瞬时电压过高损坏CH340，于是增加了一个SMF12CA于USB线的供电与地之间。</p>
-<h3 id="SMF12CA介绍"><a href="#SMF12CA介绍" class="headerlink" title="SMF12CA介绍"></a>SMF12CA介绍</h3><p>通过翻阅数据手册可以知道，SMF12CA的特性如下：</p>
-<ul>
-<li><p>截止电压VRWM：12V</p>
-</li>
-<li><p>击穿电压VBR：13.3V-14.7V</p>
-</li>
-<li><p>钳位电压VC：19.9V</p>
-</li>
-<li><p>峰值脉冲电流IPP：10.1A</p>
-</li>
-<li><p>峰值脉冲功率：200W</p>
-</li>
-</ul>
-<p>值得一提的是，在翻阅数据手册的过程中，我发现了SMF12CA中“12”就表示这个TVS管的截止电压是12V。该系列TVS管都以SMF+数字+字母构成，数字是多少说明TVS管的截止电压是多少，字母是CA表示是双极型TVS，字母是A表示是单极型TVS。</p>
-<h3 id="实践原理图"><a href="#实践原理图" class="headerlink" title="实践原理图"></a>实践原理图</h3><p><img src="https://s2.loli.net/2024/03/28/rkdWq5G4KtixApa.png" alt="image-20240328163248571"></p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/03/19/Chisel%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="hao_ran">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Technichen's blog">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Technichen's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2024/03/19/Chisel%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">Chisel入门笔记</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2024-03-19 16:07:15" itemprop="dateCreated datePublished" datetime="2024-03-19T16:07:15+08:00">2024-03-19</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2024-04-01 09:19:39" itemprop="dateModified" datetime="2024-04-01T09:19:39+08:00">2024-04-01</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/ysyx/" itemprop="url" rel="index"><span itemprop="name">ysyx</span></a>
-        </span>
-    </span>
-
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>1.3k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>5 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="Chisel是什么"><a href="#Chisel是什么" class="headerlink" title="Chisel是什么"></a>Chisel是什么</h2><p>Chisel语言是一个硬件设计语言（HDL），Chisel是基于Scala语言的一门语言。可以将Chisel看做是Scala的一个拓展库。因此，学习Chisel必须先学习Scala。</p>
-<p>Chisel诞生地是UCB（这不难想象，毕竟risc-v就诞生于UCB</p>
-<h2 id="Scala是什么"><a href="#Scala是什么" class="headerlink" title="Scala是什么"></a>Scala是什么</h2><p>Scala是一门面向对象编程语言。它在运行前被编译成和Java一样的字节码，然后使用JVM运行，也正是因为这样，Scala和Java能够无缝衔接。</p>
-<p>Scala语言能够很方便地进行扩展，因此很多DSL（domain-specific language，领域专用语言）基于Scala进行开发。</p>
-<h2 id="使用Chisel进行开发的大致流程"><a href="#使用Chisel进行开发的大致流程" class="headerlink" title="使用Chisel进行开发的大致流程"></a>使用Chisel进行开发的大致流程</h2><p>许多人对使用Verilog进行开发很熟悉：写Verilog–&gt;综合–&gt;仿真。</p>
-<p>实际上使用Chisel进行开发和使用Verilog进行开发流程是相似的。</p>
-<p>写Chisel–&gt;firrtl编译器将Chisel文件转换成firrtl文件–&gt;转换成Verilog–&gt;综合–&gt;仿真。</p>
-<p>因此使用Chisel进行开发对于熟悉使用Verilog进行开发的人来说并不会感到难受。</p>
-<blockquote>
-<p>正是因为Chisel需要转换成Verilog再生成最终的电路，所以Chisel并不是HLS，而是HDL。</p>
-</blockquote>
-<h2 id="使用Chisel的好处"><a href="#使用Chisel的好处" class="headerlink" title="使用Chisel的好处"></a>使用Chisel的好处</h2><p>既然要使用Chisel，那么它一定有比Verilog好的地方。</p>
-<ol>
-<li>面向对象（SystemVerilog的面向对象只针对验证阶段）。</li>
-<li>安全（使用Chisel写的代码转换为Verilog不会生成锁存器）。</li>
-<li>可综合（使用Chisel写的代码转换为Verilog后全部可综合）。</li>
-<li>敏捷。</li>
-</ol>
-<h2 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h2><h3 id="寄存器Register"><a href="#寄存器Register" class="headerlink" title="寄存器Register"></a>寄存器Register</h3><p>使用Chisel写时序逻辑电路时，如果没有显式添加时钟和复位，生成的Verilog也会添加时钟和复位，这便是Chisel代码添加隐式时钟和复位的功能。</p>
-<h4 id="Reg"><a href="#Reg" class="headerlink" title="Reg"></a>Reg</h4><p>先定义一个寄存器再进行操作。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">val register = Reg(UInt(12.W))</span><br><span class="line">register := io.in + 1.U</span><br><span class="line">io.out := register</span><br></pre></td></tr></table></figure>
-
-<h4 id="RegNext"><a href="#RegNext" class="headerlink" title="RegNext"></a>RegNext</h4><p>直接定义一个寄存器并进行操作，不关心寄存器叫什么。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">io.out := RegNext(io.in + 1.U)</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>RegNext寄存器的输出的宽度就是<code>io.out</code>的宽度</p>
-</blockquote>
-<h4 id="RegInit"><a href="#RegInit" class="headerlink" title="RegInit"></a>RegInit</h4><p>定义寄存器时指定一个值。使用RegInit时，Chisel生成的Verilog包含一个高电平有效且同步的复位。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">val myReg = RegInit(UInt(12.W), 0.U)</span><br><span class="line">或</span><br><span class="line">val myReg = RegInit(0.U(12.W))</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>同步复位和异步复位的区别：</p>
-<p>同步复位指的是只有时钟满足条件是才复位。</p>
-<p>异步复位指的是无论时钟是否到来，只要复位信号有效就复位。</p>
-<p>同步复位代码示例：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">always @(posedge clk) begin</span><br><span class="line">	if(!rst) begin</span><br><span class="line">		... ...</span><br><span class="line">	end</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
-
-<p>异步复位代码示例：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">always @(posedge clk or negedge rst) begin</span><br><span class="line">	if(!rst) begin</span><br><span class="line">		... ...</span><br><span class="line">	end</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
-</blockquote>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/03/16/Makefile%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="hao_ran">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Technichen's blog">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Technichen's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2024/03/16/Makefile%E5%85%A5%E9%97%A8%E7%AC%94%E8%AE%B0/" class="post-title-link" itemprop="url">Makefile入门笔记</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2024-03-16 22:28:40 / 修改时间：23:37:51" itemprop="dateCreated datePublished" datetime="2024-03-16T22:28:40+08:00">2024-03-16</time>
-    </span>
-
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>474</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>2 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>这篇笔记是视频<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1hE411N7BK/">【c语言】11.如何编写Makefile文件</a>的笔记。</p>
-<hr>
-<p>make是一个工程管理器。</p>
-<p>在终端输入<code>make</code>，会自动寻找makefile文件，按照文件的描述进行编译。</p>
-<p>如果在同一个文件夹中有小写开头的makefile和大写开头的Makefile，默认情况下是按照小写开头的makefile进行编译。</p>
-<p>make这个工程管理器的核心功能是根据文件之间的依赖关系和文件的时间戳来判断哪些文件需要进行编译。</p>
-<p>可以将makefile看做是脚本程序，因为里面有类似宏定义的功能，所以可以将gcc编译器更换为其他编译器，以达到编译不同语言的功能。</p>
-<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">OBJS=main.o tool1.o tool2.o</span><br><span class="line">CC=gcc</span><br><span class="line">CFLAGS+=-c -Wall -g</span><br><span class="line"></span><br><span class="line"><span class="section">mytool:<span class="variable">$(OBJS)</span></span></span><br><span class="line">	<span class="variable">$(CC)</span> <span class="variable">$^</span> -o <span class="variable">$@</span> <span class="comment"># $^表示上述依赖文件$(OBJS)，$@表示上述目标文件mytool</span></span><br><span class="line">	</span><br><span class="line"><span class="section">%.o:%.c # %是一个通配符，在同一句话中，%代表的是同一个名字</span></span><br><span class="line">	<span class="variable">$(CC)</span> <span class="variable">$^</span> <span class="variable">$(CFLAGS)</span> -o <span class="variable">$@</span></span><br><span class="line"></span><br><span class="line"><span class="section">clean:</span></span><br><span class="line">	<span class="variable">$(RM)</span> *.o mytool -r <span class="comment"># $(RM)等于rm -f</span></span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/03/16/C%E8%AF%AD%E8%A8%80%EF%BC%9A%E6%8C%87%E9%92%88%E6%95%B0%E7%BB%84%E3%80%81%E6%95%B0%E7%BB%84%E6%8C%87%E9%92%88/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="hao_ran">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Technichen's blog">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Technichen's blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2024/03/16/C%E8%AF%AD%E8%A8%80%EF%BC%9A%E6%8C%87%E9%92%88%E6%95%B0%E7%BB%84%E3%80%81%E6%95%B0%E7%BB%84%E6%8C%87%E9%92%88/" class="post-title-link" itemprop="url">C语言：指针数组、数组指针</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2024-03-16 11:38:00 / 修改时间：11:50:52" itemprop="dateCreated datePublished" datetime="2024-03-16T11:38:00+08:00">2024-03-16</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/C%E8%AF%AD%E8%A8%80%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">C语言笔记</span></a>
-        </span>
-    </span>
-
-  
-    <span class="post-meta-break"></span>
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>42</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>在复习C语言指针的时候，我在知乎上看到两篇关于指针的很好的文章，在这里记录学习收获。</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
   <nav class="pagination">
     <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
@@ -1352,13 +1553,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">25k</span>
+    <span title="站点总字数">36k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">1:37</span>
+    <span title="站点阅读时长">2:17</span>
   </span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动

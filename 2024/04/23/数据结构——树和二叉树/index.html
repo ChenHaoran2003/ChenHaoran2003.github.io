@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha256-yIDrPSXHZdOZhAqiBP7CKzIwMQmRCJ8UeB8Jo17YC4o=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="这篇文章是数据结构课程的一个笔记，做这个笔记是为了方便自己梳理所学内容。 相关概念树是由n（n≥0）个结点组成的有限集合T。（n可以等于0！当n等于0时树为空树） 结点数据结构+若干指向其子树的分支。 结点的度节点拥有的子树的数量。 叶子结点度为零的结点。 分支结点度大于零的结点。 二叉树基本特征 每个结点最多只有两颗子树（不存在度大于2的结点）  左子树和右子树的次序不能颠倒（有序树）  有序树">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据结构——树和二叉树">
+<meta property="og:url" content="http://example.com/2024/04/23/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E2%80%94%E2%80%94%E6%A0%91%E5%92%8C%E4%BA%8C%E5%8F%89%E6%A0%91/index.html">
+<meta property="og:site_name" content="Technichen&#39;s blog">
+<meta property="og:description" content="这篇文章是数据结构课程的一个笔记，做这个笔记是为了方便自己梳理所学内容。 相关概念树是由n（n≥0）个结点组成的有限集合T。（n可以等于0！当n等于0时树为空树） 结点数据结构+若干指向其子树的分支。 结点的度节点拥有的子树的数量。 叶子结点度为零的结点。 分支结点度大于零的结点。 二叉树基本特征 每个结点最多只有两颗子树（不存在度大于2的结点）  左子树和右子树的次序不能颠倒（有序树）  有序树">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2024/blogphoto/image-20240423154749597.png">
+<meta property="article:published_time" content="2024-04-23T07:31:14.000Z">
+<meta property="article:modified_time" content="2024-04-23T15:26:53.387Z">
+<meta property="article:author" content="hao_ran">
+<meta property="article:tag" content="笔记">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2024/blogphoto/image-20240423154749597.png">
+
+
+<link rel="canonical" href="http://example.com/2024/04/23/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E2%80%94%E2%80%94%E6%A0%91%E5%92%8C%E4%BA%8C%E5%8F%89%E6%A0%91/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2024/04/23/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E2%80%94%E2%80%94%E6%A0%91%E5%92%8C%E4%BA%8C%E5%8F%89%E6%A0%91/","path":"2024/04/23/数据结构——树和二叉树/","title":"数据结构——树和二叉树"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>数据结构——树和二叉树 | Technichen's blog</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Technichen's blog</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5"><span class="nav-number">1.</span> <span class="nav-text">相关概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%91"><span class="nav-number">1.1.</span> <span class="nav-text">树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%93%E7%82%B9"><span class="nav-number">1.2.</span> <span class="nav-text">结点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%93%E7%82%B9%E7%9A%84%E5%BA%A6"><span class="nav-number">1.3.</span> <span class="nav-text">结点的度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%B6%E5%AD%90%E7%BB%93%E7%82%B9"><span class="nav-number">1.4.</span> <span class="nav-text">叶子结点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E6%94%AF%E7%BB%93%E7%82%B9"><span class="nav-number">1.5.</span> <span class="nav-text">分支结点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E5%8F%89%E6%A0%91"><span class="nav-number">2.</span> <span class="nav-text">二叉树</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E7%89%B9%E5%BE%81"><span class="nav-number">2.1.</span> <span class="nav-text">基本特征</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%91%E5%92%8C%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="nav-number">2.2.</span> <span class="nav-text">树和二叉树的关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%A4%E7%A7%8D%E7%89%B9%E6%AE%8A%E7%9A%84%E4%BA%8C%E5%8F%89%E6%A0%91"><span class="nav-number">2.3.</span> <span class="nav-text">两种特殊的二叉树</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%BB%A1%E4%BA%8C%E5%8F%89%E6%A0%91"><span class="nav-number">2.3.1.</span> <span class="nav-text">满二叉树</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%8C%E5%85%A8%E4%BA%8C%E5%8F%89%E6%A0%91"><span class="nav-number">2.3.2.</span> <span class="nav-text">完全二叉树</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E4%BA%94%E4%B8%AA%E6%80%A7%E8%B4%A8"><span class="nav-number">2.4.</span> <span class="nav-text">二叉树的五个性质</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E5%B1%82%E6%95%B0%E5%92%8C%E7%BB%93%E7%82%B9%E6%95%B0%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="nav-number">2.4.1.</span> <span class="nav-text">1. 层数和结点数的关系</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E6%B7%B1%E5%BA%A6%E5%92%8C%E8%8A%82%E7%82%B9%E6%95%B0%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="nav-number">2.4.2.</span> <span class="nav-text">2. 深度和节点数的关系</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-n-2-%E5%92%8C-n-0-%E7%BB%93%E7%82%B9%E6%95%B0%E9%87%8F%E4%B9%8B%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="nav-number">2.4.3.</span> <span class="nav-text">3. $n_2$和$n_0$结点数量之间的关系</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E8%8A%82%E7%82%B9%E4%B8%8E%E5%AE%8C%E5%85%A8%E4%BA%8C%E5%8F%89%E6%A0%91%E6%B7%B1%E5%BA%A6%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="nav-number">2.4.4.</span> <span class="nav-text">4. 节点与完全二叉树深度的关系</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-%E5%AE%8C%E5%85%A8%E4%BA%8C%E5%8F%89%E6%A0%91%E4%B8%AD%E8%8A%82%E7%82%B9%E7%BC%96%E5%8F%B7%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="nav-number">2.4.5.</span> <span class="nav-text">5. 完全二叉树中节点编号的关系</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">hao_ran</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">29</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">23</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/04/23/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E2%80%94%E2%80%94%E6%A0%91%E5%92%8C%E4%BA%8C%E5%8F%89%E6%A0%91/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hao_ran">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Technichen's blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="数据结构——树和二叉树 | Technichen's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          数据结构——树和二叉树
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2024-04-23 15:31:14 / 修改时间：23:26:53" itemprop="dateCreated datePublished" datetime="2024-04-23T15:31:14+08:00">2024-04-23</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" itemprop="url" rel="index"><span itemprop="name">数据结构</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>790</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>3 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>这篇文章是数据结构课程的一个笔记，做这个笔记是为了方便自己梳理所学内容。</p>
+<h2 id="相关概念"><a href="#相关概念" class="headerlink" title="相关概念"></a>相关概念</h2><h3 id="树"><a href="#树" class="headerlink" title="树"></a>树</h3><p>是由n（n≥0）个结点组成的有限集合T。（n可以等于0！当n等于0时树为空树）</p>
+<h3 id="结点"><a href="#结点" class="headerlink" title="结点"></a>结点</h3><p>数据结构+若干指向其子树的分支。</p>
+<h3 id="结点的度"><a href="#结点的度" class="headerlink" title="结点的度"></a>结点的度</h3><p>节点拥有的子树的数量。</p>
+<h3 id="叶子结点"><a href="#叶子结点" class="headerlink" title="叶子结点"></a>叶子结点</h3><p>度为零的结点。</p>
+<h3 id="分支结点"><a href="#分支结点" class="headerlink" title="分支结点"></a>分支结点</h3><p>度大于零的结点。</p>
+<h2 id="二叉树"><a href="#二叉树" class="headerlink" title="二叉树"></a>二叉树</h2><h3 id="基本特征"><a href="#基本特征" class="headerlink" title="基本特征"></a>基本特征</h3><ul>
+<li><p>每个结点最多只有两颗子树（不存在度大于2的结点）</p>
+</li>
+<li><p>左子树和右子树的次序不能颠倒（有序树）</p>
+<blockquote>
+<p>有序树并不意味着必须要有左子树，可以在没有左子树的情况下有右子树。</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="树和二叉树的关系"><a href="#树和二叉树的关系" class="headerlink" title="树和二叉树的关系"></a>树和二叉树的关系</h3><p>这篇文章的名字是“数据结构——树和二叉树”，之所以把树和二叉树并列，是因为严格来说二叉树和树并不是从属的关系。</p>
+<img src="../../../blogphoto/image-20240423154749597.png" alt="image-20240423154749597" style="zoom:67%;" />
+
+<p>从这一页ppt就可以看出，“n叉树”和树并不是从属的关系，它们属于不同的树结构。</p>
+<h3 id="两种特殊的二叉树"><a href="#两种特殊的二叉树" class="headerlink" title="两种特殊的二叉树"></a>两种特殊的二叉树</h3><h4 id="满二叉树"><a href="#满二叉树" class="headerlink" title="满二叉树"></a>满二叉树</h4><p>每一层都满了。</p>
+<h4 id="完全二叉树"><a href="#完全二叉树" class="headerlink" title="完全二叉树"></a>完全二叉树</h4><p>只有最后一层不满，且叶子节点全部集中在左边。</p>
+<h3 id="二叉树的五个性质"><a href="#二叉树的五个性质" class="headerlink" title="二叉树的五个性质"></a>二叉树的五个性质</h3><h4 id="1-层数和结点数的关系"><a href="#1-层数和结点数的关系" class="headerlink" title="1. 层数和结点数的关系"></a>1. 层数和结点数的关系</h4><p>在二叉树的第i层最多有$2^{i-1}$个结点。</p>
+<blockquote>
+<p>这不难理解，二叉树各层最大数分别为1 2 4 8……</p>
+</blockquote>
+<h4 id="2-深度和节点数的关系"><a href="#2-深度和节点数的关系" class="headerlink" title="2. 深度和节点数的关系"></a>2. 深度和节点数的关系</h4><p>深度为k的二叉树至多含有$2^k-1$个结点。</p>
+<blockquote>
+<p>这个结论根据第1个结论可以推出。</p>
+</blockquote>
+<h4 id="3-n-2-和-n-0-结点数量之间的关系"><a href="#3-n-2-和-n-0-结点数量之间的关系" class="headerlink" title="3. $n_2$和$n_0$结点数量之间的关系"></a>3. $n_2$和$n_0$结点数量之间的关系</h4><p>对于二叉树，若含有$n_0$个子叶结点，$n_2$个度为2的结点，则必存在关系式$n_0&#x3D;n_2+1$。</p>
+<blockquote>
+<p>证明：</p>
+<p>​	设n为结点总数，有$n&#x3D;n_0+n_1+n_2$。</p>
+<p>​	总分支数&#x3D;$n-1$&#x3D;$n_1+2n_2$</p>
+<p>​	联立两式可得结论。</p>
+</blockquote>
+<h4 id="4-节点与完全二叉树深度的关系"><a href="#4-节点与完全二叉树深度的关系" class="headerlink" title="4. 节点与完全二叉树深度的关系"></a>4. 节点与完全二叉树深度的关系</h4><p>具有n个节点的完全二叉树的深度必为$\lfloor \log_2n \rfloor + 1$。</p>
+<blockquote>
+<p>这个结论可以由结论2推出。</p>
+</blockquote>
+<h4 id="5-完全二叉树中节点编号的关系"><a href="#5-完全二叉树中节点编号的关系" class="headerlink" title="5. 完全二叉树中节点编号的关系"></a>5. 完全二叉树中节点编号的关系</h4><p>完全二叉树编号为i的结点，若存在左孩子，则左孩子的编号为2i；若存在右孩子，则右孩子的编号为2i+1。</p>
+<blockquote>
+<p>这个结论可以通过找规律得出。</p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E7%AC%94%E8%AE%B0/" rel="tag"># 笔记</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2024/04/01/%E5%86%8D%E8%AF%86HDL/" rel="prev" title="再识HDL">
+                  <i class="fa fa-angle-left"></i> 再识HDL
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2024/04/29/C%E8%AF%AD%E8%A8%80%EF%BC%9A%E5%8F%98%E9%95%BF%E5%8F%82%E6%95%B0/" rel="next" title="C语言：变长参数">
+                  C语言：变长参数 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2023 – 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">hao_ran</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">36k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">2:17</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
