@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha256-yIDrPSXHZdOZhAqiBP7CKzIwMQmRCJ8UeB8Jo17YC4o=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.19.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="这篇笔记是对《自己动手写CPU》第五章的记录。  流水线有三种相关：  结构相关 数据相关 控制相关   相关在一些书里面也称为冒险（《量化》）或依赖（忘了是哪些书）。  结构相关结构相关指的是在流水线的过程中硬件资源发生冲突。 数据相关数据相关指的是在流水线中执行的几条指令，一条指令依赖于前面指令的执行。 数据相关又分为三种情况：  RAW：Read After Write，如j在i后面执行，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="流水线基础知识">
+<meta property="og:url" content="http://example.com/2024/10/20/%E6%B5%81%E6%B0%B4%E7%BA%BF%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/index.html">
+<meta property="og:site_name" content="Technichen&#39;s blog">
+<meta property="og:description" content="这篇笔记是对《自己动手写CPU》第五章的记录。  流水线有三种相关：  结构相关 数据相关 控制相关   相关在一些书里面也称为冒险（《量化》）或依赖（忘了是哪些书）。  结构相关结构相关指的是在流水线的过程中硬件资源发生冲突。 数据相关数据相关指的是在流水线中执行的几条指令，一条指令依赖于前面指令的执行。 数据相关又分为三种情况：  RAW：Read After Write，如j在i后面执行，">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2024/10/20/nGKl6uSx2pDCcRF.png">
+<meta property="article:published_time" content="2024-10-20T15:34:30.000Z">
+<meta property="article:modified_time" content="2024-10-20T15:44:11.142Z">
+<meta property="article:author" content="hao_ran">
+<meta property="article:tag" content="笔记">
+<meta property="article:tag" content="计算机体系结构">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2024/10/20/nGKl6uSx2pDCcRF.png">
+
+
+<link rel="canonical" href="http://example.com/2024/10/20/%E6%B5%81%E6%B0%B4%E7%BA%BF%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2024/10/20/%E6%B5%81%E6%B0%B4%E7%BA%BF%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/","path":"2024/10/20/流水线基础知识/","title":"流水线基础知识"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>流水线基础知识 | Technichen's blog</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Technichen's blog</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%93%E6%9E%84%E7%9B%B8%E5%85%B3"><span class="nav-number">1.</span> <span class="nav-text">结构相关</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E7%9B%B8%E5%85%B3"><span class="nav-number">2.</span> <span class="nav-text">数据相关</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#RAW%E7%9B%B8%E5%85%B3%E7%9A%84%E4%B8%89%E7%A7%8D%E6%83%85%E5%86%B5"><span class="nav-number">2.1.</span> <span class="nav-text">RAW相关的三种情况</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RAW%E7%9B%B8%E5%85%B3%E7%9A%84%E4%B8%89%E7%A7%8D%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95"><span class="nav-number">2.2.</span> <span class="nav-text">RAW相关的三种解决方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8F%92%E5%85%A5%E6%9A%82%E5%81%9C%E5%91%A8%E6%9C%9F"><span class="nav-number">2.2.1.</span> <span class="nav-text">插入暂停周期</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BC%96%E8%AF%91%E5%99%A8%E8%B0%83%E5%BA%A6"><span class="nav-number">2.2.2.</span> <span class="nav-text">编译器调度</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%89%8D%E6%8E%A8"><span class="nav-number">2.2.3.</span> <span class="nav-text">数据前推</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8E%A7%E5%88%B6%E7%9B%B8%E5%85%B3"><span class="nav-number">3.</span> <span class="nav-text">控制相关</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">hao_ran</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">30</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/10/20/%E6%B5%81%E6%B0%B4%E7%BA%BF%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="hao_ran">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Technichen's blog">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="流水线基础知识 | Technichen's blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          流水线基础知识
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2024-10-20 23:34:30 / 修改时间：23:44:11" itemprop="dateCreated datePublished" datetime="2024-10-20T23:34:30+08:00">2024-10-20</time>
+    </span>
+
+  
+    <span class="post-meta-break"></span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.4k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>5 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><blockquote>
+<p>这篇笔记是对《自己动手写CPU》第五章的记录。</p>
+</blockquote>
+<p>流水线有三种相关：</p>
+<ul>
+<li>结构相关</li>
+<li>数据相关</li>
+<li>控制相关</li>
+</ul>
+<blockquote>
+<p><strong>相关</strong>在一些书里面也称为冒险（《量化》）或依赖（忘了是哪些书）。</p>
+</blockquote>
+<h2 id="结构相关"><a href="#结构相关" class="headerlink" title="结构相关"></a>结构相关</h2><p>结构相关指的是在流水线的过程中硬件资源发生冲突。</p>
+<h2 id="数据相关"><a href="#数据相关" class="headerlink" title="数据相关"></a>数据相关</h2><p>数据相关指的是在流水线中执行的几条指令，一条指令依赖于前面指令的执行。</p>
+<p>数据相关又分为三种情况：</p>
+<ul>
+<li>RAW：Read After Write，如j在i后面执行，要等i将数据放进regfile后，j才能从regfile中取出数据。</li>
+<li>WAR，Write After Read，如j在i后面执行，要等i将数据从regfile中读出，j才能将数据填入regfile。</li>
+<li>WAW，Write After Write，如j在i后面执行，要等i将数据写入regfile后，j才能将数据写入regfile。</li>
+</ul>
+<blockquote>
+<p>由于五级流水线的顺序是：取指-&gt;译码-&gt;执行-&gt;访存-&gt;回写。</p>
+<p>所以对于连续的i、j指令来说，i指令在译码阶段Read的时候j指令才到了取指，所以WAR规则不会被违反，WAR相关不会发生。</p>
+<p>同理，WAW相关也不会发生。</p>
+<p>所以五级流水线只存在RAW相关。</p>
+</blockquote>
+<h3 id="RAW相关的三种情况"><a href="#RAW相关的三种情况" class="headerlink" title="RAW相关的三种情况"></a>RAW相关的三种情况</h3><ul>
+<li>相邻指令间存在数据相关</li>
+<li>相隔1条指令间存在数据相关</li>
+<li>相隔2条指令间存在数据相关</li>
+</ul>
+<blockquote>
+<p>对于连续的i、j指令，当i和j相隔2条指令时，i的回写和j的译码在同一拍进行。在这一拍的上升沿到来时，i指令将会把数据回写到寄存器，而此时j指令的译码阶段也已经结束，j指令已经取到了错误的寄存器数据。<strong>但是</strong>《自己动手写CPU》通过判断在特定的情况下是否需要将写入寄存器的数据在写入的同时直接输出寄存器，实现了对“相隔2条指令间存在数据相关”的处理。</p>
+<p>当i和j相隔3条指令时，将不会发生RAW相关。</p>
+</blockquote>
+<h3 id="RAW相关的三种解决方法"><a href="#RAW相关的三种解决方法" class="headerlink" title="RAW相关的三种解决方法"></a>RAW相关的三种解决方法</h3><p>“相隔2条指令间存在数据相关”根据上面所述已经解决。</p>
+<p>“相邻指令间存在数据相关”和“相隔1条指令间存在数据相关”有三种处理方法：</p>
+<ul>
+<li><p>插入暂停周期</p>
+</li>
+<li><p>编译器调度</p>
+</li>
+<li><p>数据前推</p>
+<h4 id="插入暂停周期"><a href="#插入暂停周期" class="headerlink" title="插入暂停周期"></a>插入暂停周期</h4><p>书上说的是在译码阶段前面插入两个暂停周期。我觉得也可以通过插入两条空的指令来实现。</p>
+<h4 id="编译器调度"><a href="#编译器调度" class="headerlink" title="编译器调度"></a>编译器调度</h4><p>当编译器检测到RAW相关之后调整部分指令的顺序。</p>
+<h4 id="数据前推"><a href="#数据前推" class="headerlink" title="数据前推"></a>数据前推</h4><p>如下图所示，第1条指令回写的值在执行阶段就能计算出，那么可以直接将执行阶段计算得到的值送到下一条指令的译码阶段，或者将访存的值直接送到下2条指令的译码阶段。</p>
+<p><img src="https://s2.loli.net/2024/10/20/nGKl6uSx2pDCcRF.png" alt="image-20240727182511447"></p>
+<p>上面的数据前推有一个前提，那就是指令在执行阶段就能够得到需要回写的值。这对于load指令来说是无法实现的，因为load指令需要在访存阶段才能够得到回写的值。</p>
+<blockquote>
+<p>使用数据前推，先判断执行阶段是否能够数据前推，再判断访存阶段是否能够数据前推。这是因为当前指令的上1条指令正在执行阶段，上2条指令正在执行访存阶段。如果上1条指令和上2条指令最终回写的寄存器位置相同，那么按照“先判断执行阶段是否能够数据前推，再判断访存阶段是否能够数据前推”的原则进行判断，能够得到最新的正确的寄存器的值。反之，如果先判断访存阶段是否能够数据前推，得到的上2条指令写入寄存器的值将会是过时的。</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="控制相关"><a href="#控制相关" class="headerlink" title="控制相关"></a>控制相关</h2><p>控制相关指的是流水线中一条指令修改了PC的值，造成了相关。</p>
+<p>举个例子，转移指令使转移发生后，转移指令后面的两条指令分别处于，译码、取指阶段，这两条指令在流水线中，但是由于转移发生，这两条指令不应该执行，于是造成了控制相关。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E7%AC%94%E8%AE%B0/" rel="tag"># 笔记</a>
+              <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/" rel="tag"># 计算机体系结构</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2024/07/24/git%E4%B8%AD%E7%9A%84reset/" rel="prev" title="git中的reset">
+                  <i class="fa fa-angle-left"></i> git中的reset
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 2023 – 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">hao_ran</span>
+  </div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">37k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">2:22</span>
+  </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
